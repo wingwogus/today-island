@@ -99,6 +99,7 @@ const StyledWrapper = styled.div`
 
   .list {
     display: flex;
+    list-style: none;
     margin-bottom: 1rem;
     overflow: scroll;
     scrollbar-width: none;
