@@ -42,7 +42,8 @@ const PostHeader: React.FC<Props> = ({ data }) => {
           <div className="mid">
             {data.tags && (
               <div className="tags">
-                {data.tags.map((tag: string) => (
+                {data.tags.filter((tag: string) => tag !== "5::🛠️ 기타::Pinned")
+                    .map((tag: string) => (
                   <Tag key={tag}>{tag}</Tag>
                 ))}
               </div>
