@@ -18,7 +18,7 @@ const CONFIG = {
   ],
   // blog setting (required)
   blog: {
-    title: "오늘도 🏝️",
+    title: "🏝️오늘도",
     description: "Welcome to Today Island!",
     scheme: "light", // 'light' | 'dark' | 'system'
   },
