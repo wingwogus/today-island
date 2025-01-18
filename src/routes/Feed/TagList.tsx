@@ -3,79 +3,70 @@ import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import { Emoji } from "src/components/Emoji"
 import { useTagsQuery } from "src/hooks/useTagsQuery"
+import {getAllSelectItemsCountFromPosts} from "../../libs/utils/notion";
+import usePostsQuery from "../../hooks/usePostsQuery";
 
 type Props = {}
 
 const TagList: React.FC<Props> = () => {
   const router = useRouter()
   const currentTag = router.query.tag || undefined
-  const data = useTagsQuery()
-  const [tags, setTags] = useState(new Map<String, String[]>())
+  const [data, tagCount] = useTagsQuery()
+  const [tags, setTags] = useState(new Map<String, String[]>());
 
   const handleClickTag = (value: any) => {
-    // delete
-    if (currentTag === value) {
-      router.push({
-        query: {
-          ...router.query,
-          tag: undefined,
-        },
-      })
-    }
-    // add
-    else {
-      router.push({
-        query: {
-          ...router.query,
-          tag: value,
-        },
-      })
-    }
+    router.push(`/?tag=${value}`)
   }
 
-  const tagContents = () => {
-    let mainTagIndex = 0
-    return (
-      <>
-        {Array.from(tags).map(([key, value]) => {
-          mainTagIndex++
-          return (
-            <li key={String(key)} className="mainTags">
-              <div>{key}</div>
-              {value.map((subTag, index) => {
-                const originTag: String =
-                  mainTagIndex + "::" + key + "::" + subTag
-                return (
-                  <a
-                    key={index}
-                    data-active={originTag === currentTag}
-                    onClick={() => handleClickTag(originTag)}
-                  >
-                    - {subTag}
-                  </a>
-                )
-              })}
-            </li>
-          )
-        })}
-      </>
-    )
+  const handleClickCategory = (value: string) => {
+      router.push(`/?category=${value}`)
   }
-
-  useEffect(() => {
+    const tagContents = () => {
+        let mainTagIndex = 0
+        return (
+            <>
+                {Array.from(tags).map(([key, value]) => {
+                    mainTagIndex++
+                    return (
+                        <li key={String(key)} className="mainTags">
+                            <div
+                                onClick={() => handleClickCategory(String(key))}
+                            >{key}
+                            </div>
+                            {value.filter(subTag => subTag !== "Pinned" && subTag !== "컨퍼런스")
+                                .map((subTag, index) => {
+                                    const originTag = mainTagIndex + "::" + key + "::" + subTag
+                                    return (
+                                        <a
+                                            key={index}
+                                            data-active={originTag === currentTag}
+                                            onClick={() => handleClickTag(originTag)}
+                                        >
+                                            - {subTag} ({tagCount[String(originTag)] ?? 0})
+                                        </a>
+                                    )
+                                })}
+                        </li>
+                    )
+                })}
+            </>
+        )
+    }
+    useEffect(() => {
     const tempMainTags = new Map<String, String[]>()
     Object.keys(data)
-      .sort() //순서대로 정렬
-      .map((value) => {
-        const splitted: String[] = value.split("::") //[0,SW공부,CS], [0, SW공부, JavaScript], ...
-        if (splitted[2] === undefined || splitted[2].length <= 1) return
-        const currentSubTagsArray: String[] =
-          tempMainTags.get(splitted[1]) || []
-        currentSubTagsArray.push(splitted[2])
-        tempMainTags.set(splitted[1], currentSubTagsArray)
-      })
+        .sort() //순서대로 정렬
+        .map((value) => {
+          const splitted: String[] = value.split("::") //[0,SW공부,CS], [0, SW공부, JavaScript], ...
+          if (splitted[2] === undefined || splitted[2].length <= 1) return
+          const currentSubTagsArray: String[] =
+              tempMainTags.get(splitted[1]) || []
+          currentSubTagsArray.push(splitted[2])
+          tempMainTags.set(splitted[1], currentSubTagsArray)
+        })
     setTags(tempMainTags)
   }, [])
+
 
   return (
     <StyledWrapper>
@@ -132,7 +123,7 @@ const StyledWrapper = styled.div`
         padding: 0.5rem;
         padding-left: 0.3rem;
         padding-right: 0.3rem;
-        margin-top:0.3rem
+        margin-top:0.3rem;
         margin-bottom: 0.3rem;
         border-radius: 0.5rem;
         font-size: 0.975rem;
@@ -141,6 +132,16 @@ const StyledWrapper = styled.div`
         color: ${({ theme }) => theme.colors.gray11};
         flex-shrink:0;
         cursor:default;
+        :hover {
+          background-color: ${({ theme }) => theme.colors.gray4};
+        }
+        &[data-active="true"] {
+          color: ${({ theme }) => theme.colors.gray12};
+          background-color: ${({ theme }) => theme.colors.gray4};
+          :hover {
+            background-color: ${({ theme }) => theme.colors.gray4};
+          }
+        }
       }
 
       a {
