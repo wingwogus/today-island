@@ -9,14 +9,11 @@ type SetScheme = (scheme: SchemeType) => void
 
 const useScheme = (): [SchemeType, SetScheme] => {
   const queryClient = useQueryClient()
-  const followsSystemTheme = CONFIG.blog.scheme === "system"
 
   const { data } = useQuery({
     queryKey: queryKey.scheme(),
     enabled: false,
-    initialData: followsSystemTheme
-      ? "dark"
-      : (CONFIG.blog.scheme as SchemeType),
+    initialData: CONFIG.blog.scheme as SchemeType,
   })
 
   const setScheme = (scheme: SchemeType) => {
@@ -28,13 +25,13 @@ const useScheme = (): [SchemeType, SetScheme] => {
   useEffect(() => {
     if (!window) return
 
-    const cachedScheme = getCookie("scheme") as SchemeType
-    const defaultScheme = followsSystemTheme
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-      : data
-    setScheme(cachedScheme || defaultScheme)
+    const scheme = getCookie("scheme") as SchemeType
+    const initialScheme = CONFIG.blog.followSystemTheme
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light"
+        : data
+    setScheme(scheme || initialScheme)
   }, [])
 
   return [data, setScheme]
