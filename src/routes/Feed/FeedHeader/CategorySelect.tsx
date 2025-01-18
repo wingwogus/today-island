@@ -16,12 +16,7 @@ const CategorySelect: React.FC<Props> = () => {
   const currentCategory = `${router.query.category || ``}` || DEFAULT_CATEGORY
 
   const handleOptionClick = (category: string) => {
-    router.push({
-      query: {
-        ...router.query,
-        category,
-      },
-    })
+    router.push(`/?category=${category}`)
   }
   return (
     <StyledWrapper>
