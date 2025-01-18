@@ -1,5 +1,6 @@
 import PostCard from "src/routes/Feed/PostList/PostCard"
 import React, { useMemo } from "react"
+import { useRouter } from "next/router"
 import usePostsQuery from "src/hooks/usePostsQuery"
 import styled from "@emotion/styled"
 import { filterPosts } from "./filterPosts"
@@ -10,30 +11,31 @@ type Props = {
 }
 
 const PinnedPosts: React.FC<Props> = ({ q }) => {
+  const router = useRouter()
   const data = usePostsQuery()
-
+  const currentTag = `${router.query.tag || ``}` || undefined
+  const currentCategory = `${router.query.category || ``}` || DEFAULT_CATEGORY
   const filteredPosts = useMemo(() => {
-    const baseFiltered = filterPosts({
-      posts: data,
-      q,
-      category: DEFAULT_CATEGORY,
-      order: "desc",
-    })
-    return baseFiltered.filter((post) => post.tags?.includes("Pinned"))
+      const baseFiltered = filterPosts({
+          posts: data,
+          q,
+          category: DEFAULT_CATEGORY,
+          order: "desc",
+      })
+      return baseFiltered.filter((post) => post.tags?.includes("5::🛠️ 기타::Pinned"))
   }, [data, q])
-
+  if (currentTag || currentCategory !== DEFAULT_CATEGORY) return null
   if (filteredPosts.length === 0) return null
-
   return (
     <StyledWrapper>
-      <div className="wrapper">
-        <div className="header">📌 Pinned Posts</div>
-      </div>
-      <div className="my-2">
-        {filteredPosts.map((post) => (
-          <PostCard key={post.slug} data={post} />
-        ))}
-      </div>
+        <div className="wrapper">
+            <div className="header">📌 Pinned Posts</div>
+        </div>
+        <div className="my-2">
+            {filteredPosts.map((post) => (
+                <PostCard key={post.slug} data={post} showMedia={false} />
+            ))}
+        </div>
     </StyledWrapper>
   )
 }
