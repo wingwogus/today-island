@@ -17,11 +17,11 @@ export const getPosts = async () => {
 
   const response = await api.getPage(id)
   id = idToUuid(id)
-  const collection = Object.values(response.collection)[0]?.value
+  const collection = (Object.values(response.collection )[0]as any)?.value?.value
   const block = response.block
   const schema = collection?.schema
 
-  const rawMetadata = block[id].value
+  const rawMetadata = (block[id] as any).value?.value
 
   // Check Type
   if (
