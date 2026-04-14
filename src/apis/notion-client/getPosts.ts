@@ -17,7 +17,7 @@ export const getPosts = async () => {
 
   const response = await api.getPage(id)
   id = idToUuid(id)
-  const collection = (Object.values(response.collection )[0]as any)?.value?.value
+  const collection = (Object.values(response.collection)[0] as any)?.value?.value
   const block = response.block
   const schema = collection?.schema
 
@@ -31,22 +31,43 @@ export const getPosts = async () => {
     return []
   } else {
     // Construct Data
-    const pageIds = getAllPageIds(response)
+    const rawCollectionId = rawMetadata?.collection_id as string | undefined
+    const rawViewId = rawMetadata?.view_ids?.[0] as string | undefined
+
+    if (!rawCollectionId || !rawViewId) {
+      return []
+    }
+
+    const primaryMissing =
+      !response.collection_query?.[rawCollectionId]?.[rawViewId]
+
+    const pageIds = primaryMissing
+      ? (
+          ((await api.getCollectionData(
+            rawCollectionId,
+            rawViewId,
+            response.collection_view?.[rawViewId]?.value
+          )).result as any)?.reducerResults?.collection_group_results
+            ?.blockIds || []
+        )
+      : getAllPageIds(response, rawViewId)
+
     const tempBlock = await (await api.getBlocks(pageIds)).recordMap.block
 
     const data = []
     for (let i = 0; i < pageIds.length; i++) {
       const id = pageIds[i]
+      const blockValue = (tempBlock[id] as any)?.value?.value
       const properties =
         (await getPageProperties(id, tempBlock, schema)) || null
-      if (!tempBlock[id]) continue
+      if (!blockValue) continue
       
       // Add fullwidth, createdtime to properties
       properties.createdTime = new Date(
-        tempBlock[id].value?.created_time
+        blockValue?.created_time
       ).toString()
       properties.fullWidth =
-        (tempBlock[id].value?.format as any)?.page_full_width ?? false
+        (blockValue?.format as any)?.page_full_width ?? false
 
       data.push(properties)
     }

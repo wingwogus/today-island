@@ -15,11 +15,35 @@ const TagList: React.FC<Props> = () => {
   const [tags, setTags] = useState(new Map<String, String[]>());
 
   const handleClickTag = (value: any) => {
-    router.push(`/?tag=${value}`)
+    router.replace(
+      {
+        pathname: router.pathname,
+        query: {
+          tag: value,
+        },
+      },
+      undefined,
+      {
+        shallow: true,
+        scroll: false,
+      }
+    )
   }
 
   const handleClickCategory = (value: string) => {
-      router.push(`/?category=${value}`)
+      router.replace(
+        {
+          pathname: router.pathname,
+          query: {
+            category: value,
+          },
+        },
+        undefined,
+        {
+          shallow: true,
+          scroll: false,
+        }
+      )
   }
     const tagContents = () => {
         let mainTagIndex = 0
