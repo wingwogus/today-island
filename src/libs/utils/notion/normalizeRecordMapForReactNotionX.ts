@@ -54,5 +54,6 @@ export const normalizeRecordMapForReactNotionX = (
     block: normalizeRecordTable(recordMap.block),
     collection: normalizeRecordTable(recordMap.collection),
     collection_view: normalizeRecordTable(recordMap.collection_view),
+    notion_user: normalizeRecordTable(recordMap.notion_user),
   } as ExtendedRecordMap
 }
