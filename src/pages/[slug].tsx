@@ -19,12 +19,9 @@ const filter: FilterPostsOptions = {
 }
 
 export const getStaticPaths = async () => {
-  const posts = await getPosts()
-  const filteredPost = filterPosts(posts, filter)
-
   return {
-    paths: filteredPost.map((row) => `/${row.slug}`),
-    fallback: true,
+    paths: [],
+    fallback: "blocking",
   }
 }
 
@@ -37,8 +34,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const detailPosts = filterPosts(posts, filter)
   const postDetail = detailPosts.find((t: any) => t.slug === slug)
+
+  if (!postDetail) {
+    return {
+      notFound: true,
+      revalidate: CONFIG.revalidateTime,
+    }
+  }
+
   const recordMap = normalizeRecordMapForReactNotionX(
-    await getRecordMap(postDetail?.id!)
+    await getRecordMap(postDetail.id)
   )
 
   await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
