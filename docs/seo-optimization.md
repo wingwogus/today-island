@@ -10,12 +10,15 @@
 
 ```js
 blog: {
-  title: "기술 블로그 | 이재현의 백엔드 개발 회고와 실전 기록",
+  title: "🏝️오늘도",
   description:
-    "백엔드 개발과 기술 선택, 프로젝트 회고를 기록하는 이재현의 기술 블로그입니다. 실전 경험을 바탕으로 문제 해결 과정을 확인하세요.",
+    "오늘도 발전하기 위한 하루가 되기를 바라는 마음으로 백엔드 개발, 기술 선택, 프로젝트 회고를 기록하는 이재현의 기술 블로그입니다.",
   scheme: "light",
 },
 seo: {
+  title: "🏝️오늘도 | 발전을 기록하는 백엔드 기술 블로그와 회고",
+  description:
+    "오늘도 발전하기 위한 하루가 되기를 바라는 마음으로 백엔드 개발, 기술 선택, 프로젝트 회고를 기록하는 이재현의 기술 블로그입니다.",
   keywords: [
     "블로그",
     "기술 블로그",
@@ -27,7 +30,7 @@ seo: {
     "프로젝트 회고",
   ],
   defaultOgImage:
-    "https://og-image-korean.vercel.app/%EA%B8%B0%EC%88%A0%20%EB%B8%94%EB%A1%9C%EA%B7%B8%20%7C%20%EC%9D%B4%EC%9E%AC%ED%98%84%EC%9D%98%20%EB%B0%B1%EC%97%94%EB%93%9C%20%EA%B0%9C%EB%B0%9C%20%ED%9A%8C%EA%B3%A0.png",
+    "https://og-image-korean.vercel.app/%F0%9F%8F%9D%EF%B8%8F%EC%98%A4%EB%8A%98%EB%8F%84%20%7C%20%EB%B0%9C%EC%A0%84%EC%9D%84%20%EA%B8%B0%EB%A1%9D%ED%95%98%EB%8A%94%20%EB%B0%B1%EC%97%94%EB%93%9C%20%EA%B8%B0%EC%88%A0%20%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%99%80%20%ED%9A%8C%EA%B3%A0.png",
   ogImageWidth: 1200,
   ogImageHeight: 630,
 },
@@ -70,8 +73,8 @@ link: "https://jaehyuns.com",
 
 ### 선택 근거
 
-- 홈 타이틀은 30자, 메인 키워드인 `기술 블로그`를 앞쪽에 배치했습니다.
-- 홈 description은 73자로 검색 의도인 백엔드 개발 기록, 기술 선택, 회고 탐색을 반영했습니다.
+- 헤더 브랜드는 `🏝️오늘도`로 유지하고, 홈 SEO title은 32자로 브랜드와 기술 블로그 키워드를 함께 배치했습니다.
+- 홈 description은 73자로 `오늘도 발전하기 위한 하루`라는 컨셉과 백엔드 개발, 기술 선택, 회고 탐색 의도를 함께 반영했습니다.
 - canonical은 중복 URL 신호를 줄이고, OG/Twitter 이미지는 공유 미리보기 품질을 위해 1200x630 메타를 명시했습니다.
 
 ## 2. 구조화 데이터 JSON-LD
@@ -87,14 +90,14 @@ link: "https://jaehyuns.com",
     {
       "@type": "WebSite",
       "@id": "https://jaehyuns.com/#website",
-      "name": "기술 블로그 | 이재현의 백엔드 개발 회고와 실전 기록",
+      "name": "🏝️오늘도",
       "url": "https://jaehyuns.com",
       "inLanguage": "ko-KR"
     },
     {
       "@type": "Blog",
       "@id": "https://jaehyuns.com/#blog",
-      "name": "기술 블로그 | 이재현의 백엔드 개발 회고와 실전 기록",
+      "name": "🏝️오늘도",
       "url": "https://jaehyuns.com",
       "inLanguage": "ko-KR",
       "author": {

@@ -25,10 +25,10 @@ const FeedPage: NextPageWithLayout = () => {
   const url = CONFIG.link
 
   const meta = {
-    title: CONFIG.blog.title,
-    description: CONFIG.blog.description,
+    title: CONFIG.seo.title,
+    description: CONFIG.seo.description,
     type: "website",
-    imageAlt: `${CONFIG.profile.name} 기술 블로그 대표 이미지`,
+    imageAlt: `${CONFIG.blog.title} 기술 블로그 대표 이미지`,
     url,
     jsonLd: {
       "@context": "https://schema.org",
@@ -39,7 +39,7 @@ const FeedPage: NextPageWithLayout = () => {
           name: CONFIG.blog.title,
           url,
           inLanguage: CONFIG.lang,
-          description: CONFIG.blog.description,
+          description: CONFIG.seo.description,
         },
         {
           "@type": "Blog",
@@ -47,7 +47,7 @@ const FeedPage: NextPageWithLayout = () => {
           name: CONFIG.blog.title,
           url,
           inLanguage: CONFIG.lang,
-          description: CONFIG.blog.description,
+          description: CONFIG.seo.description,
           keywords: CONFIG.seo.keywords,
           author: {
             "@type": "Person",

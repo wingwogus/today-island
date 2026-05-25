@@ -85,7 +85,7 @@ const DetailPage: NextPageWithLayout = () => {
     date: publishedDate,
     image: image,
     imageAlt: `${post.title} 대표 이미지`,
-    description: post.summary || CONFIG.blog.description,
+    description: post.summary || CONFIG.seo.description,
     type: post.type[0],
     url,
     jsonLd: {
@@ -95,7 +95,7 @@ const DetailPage: NextPageWithLayout = () => {
           "@type": schemaType,
           "@id": `${url}#article`,
           headline: post.title,
-          description: post.summary || CONFIG.blog.description,
+          description: post.summary || CONFIG.seo.description,
           image,
           url,
           mainEntityOfPage: url,
