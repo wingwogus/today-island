@@ -5,4 +5,14 @@ module.exports = {
   generateRobotsTxt: true,
   sitemapSize: 7000,
   generateIndexSitemap: false,
+  robotsTxtOptions: {
+    policies: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/api/", "/404"],
+      },
+    ],
+    additionalSitemaps: [`${CONFIG.link}/sitemap.xml`],
+  },
 }

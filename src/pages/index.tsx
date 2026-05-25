@@ -22,11 +22,41 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const FeedPage: NextPageWithLayout = () => {
+  const url = CONFIG.link
+
   const meta = {
     title: CONFIG.blog.title,
     description: CONFIG.blog.description,
     type: "website",
-    url: CONFIG.link,
+    imageAlt: `${CONFIG.profile.name} 기술 블로그 대표 이미지`,
+    url,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": `${url}/#website`,
+          name: CONFIG.blog.title,
+          url,
+          inLanguage: CONFIG.lang,
+          description: CONFIG.blog.description,
+        },
+        {
+          "@type": "Blog",
+          "@id": `${url}/#blog`,
+          name: CONFIG.blog.title,
+          url,
+          inLanguage: CONFIG.lang,
+          description: CONFIG.blog.description,
+          keywords: CONFIG.seo.keywords,
+          author: {
+            "@type": "Person",
+            name: CONFIG.profile.name,
+            url,
+          },
+        },
+      ],
+    },
   }
 
   return (

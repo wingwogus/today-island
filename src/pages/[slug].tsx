@@ -59,20 +59,81 @@ const DetailPage: NextPageWithLayout = () => {
 
   if (!post) return <CustomError />
 
-  const image =
-    post.thumbnail ??
-    CONFIG.ogImageGenerateURL ??
-    `${CONFIG.ogImageGenerateURL}/${encodeURIComponent(post.title)}.png`
+  const generatedImage = `${CONFIG.ogImageGenerateURL}/${encodeURIComponent(
+    post.title
+  )}.png`
+  const image = post.thumbnail
+    ? post.thumbnail.startsWith("http")
+      ? post.thumbnail
+      : `${CONFIG.link}${
+          post.thumbnail.startsWith("/") ? post.thumbnail : `/${post.thumbnail}`
+        }`
+    : generatedImage
 
   const date = post.date?.start_date || post.createdTime || ""
+  const publishedDate = new Date(date).toISOString()
+  const url = `${CONFIG.link}/${post.slug}`
+  const schemaType =
+    post.type[0] === "Paper"
+      ? "ScholarlyArticle"
+      : post.type[0] === "Page"
+      ? "Article"
+      : "BlogPosting"
 
   const meta = {
     title: post.title,
-    date: new Date(date).toISOString(),
+    date: publishedDate,
     image: image,
-    description: post.summary || "",
+    imageAlt: `${post.title} 대표 이미지`,
+    description: post.summary || CONFIG.blog.description,
     type: post.type[0],
-    url: `${CONFIG.link}/${post.slug}`,
+    url,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": schemaType,
+          "@id": `${url}#article`,
+          headline: post.title,
+          description: post.summary || CONFIG.blog.description,
+          image,
+          url,
+          mainEntityOfPage: url,
+          datePublished: publishedDate,
+          dateModified: publishedDate,
+          inLanguage: CONFIG.lang,
+          author: {
+            "@type": "Person",
+            name: CONFIG.profile.name,
+            url: CONFIG.link,
+          },
+          publisher: {
+            "@type": "Person",
+            name: CONFIG.profile.name,
+            url: CONFIG.link,
+          },
+          keywords: post.tags || CONFIG.seo.keywords,
+          articleSection: post.category?.[0],
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "홈",
+              item: CONFIG.link,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: post.title,
+              item: url,
+            },
+          ],
+        },
+      ],
+    },
   }
 
   return (

@@ -11,7 +11,11 @@ const ProfileCard: React.FC<Props> = () => {
     <StyledWrapper>
       <div className="content">
         <div className="top">
-          <Image src={CONFIG.profile.image} fill alt="" />
+          <Image
+            src={CONFIG.profile.image}
+            fill
+            alt={`${CONFIG.profile.name} 프로필 이미지`}
+          />
         </div>
         <div className="mid">
           <div className=" name">{CONFIG.profile.name}</div>
