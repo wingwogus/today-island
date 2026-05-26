@@ -3,15 +3,14 @@ import { CONFIG } from "../../site.config"
 import { NextPageWithLayout } from "../types"
 import { getPosts } from "../apis"
 import MetaConfig from "src/components/MetaConfig"
-import { queryClient } from "src/libs/react-query"
 import { queryKey } from "src/constants/queryKey"
-import { GetStaticProps } from "next"
-import { dehydrate } from "@tanstack/react-query"
+import { GetServerSideProps } from "next"
+import { QueryClient, dehydrate } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
 import cachedFeedPosts from "src/generated/homepage-posts-cache.json"
 import { TPosts } from "src/types"
 
-const getFeedPostsForStaticBuild = async () => {
+const getFeedPosts = async () => {
   if (process.env.FORCE_HOMEPAGE_POSTS_CACHE === "true") {
     return cachedFeedPosts as TPosts
   }
@@ -27,13 +26,16 @@ const getFeedPostsForStaticBuild = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getFeedPostsForStaticBuild()
-  await queryClient.prefetchQuery(queryKey.posts(), () => posts)
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  res.setHeader("Cache-Control", "no-store, max-age=0")
+
+  const posts = await getFeedPosts()
+  const serverQueryClient = new QueryClient()
+  await serverQueryClient.prefetchQuery(queryKey.posts(), () => posts)
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      dehydratedState: dehydrate(serverQueryClient),
     },
   }
 }
