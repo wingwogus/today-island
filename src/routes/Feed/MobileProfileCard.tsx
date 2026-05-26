@@ -2,6 +2,7 @@ import { CONFIG } from "site.config"
 import Image from "next/image"
 import React from "react"
 import styled from "@emotion/styled"
+import VisitorCounter from "./VisitorCounter"
 
 type Props = {
   className?: string
@@ -26,6 +27,7 @@ const MobileProfileCard: React.FC<Props> = () => {
             <div className="btm">{CONFIG.profile.bio}</div>
           </div>
         </div>
+        <VisitorCounter />
       </div>
     </StyledWrapper>
   )

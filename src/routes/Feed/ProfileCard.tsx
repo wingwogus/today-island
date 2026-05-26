@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import Image from "next/image"
 import React from "react"
 import { CONFIG } from "site.config"
-import { Emoji } from "src/components/Emoji"
+import VisitorCounter from "./VisitorCounter"
 
 type Props = {}
 
@@ -21,6 +21,7 @@ const ProfileCard: React.FC<Props> = () => {
           <div className=" name">{CONFIG.profile.name}</div>
           <div className="role">{CONFIG.profile.role}</div>
           <div className="text-sm mb-2">{CONFIG.profile.bio}</div>
+          <VisitorCounter />
         </div>
       </div>
     </StyledWrapper>
