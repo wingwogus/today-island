@@ -8,9 +8,27 @@ import { queryKey } from "src/constants/queryKey"
 import { GetStaticProps } from "next"
 import { dehydrate } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
+import cachedFeedPosts from "src/generated/homepage-posts-cache.json"
+import { TPosts } from "src/types"
+
+const getFeedPostsForStaticBuild = async () => {
+  if (process.env.FORCE_HOMEPAGE_POSTS_CACHE === "true") {
+    return cachedFeedPosts as TPosts
+  }
+
+  try {
+    return filterPosts(await getPosts())
+  } catch (error) {
+    console.warn(
+      "Using cached homepage posts after Notion fetch failure",
+      error
+    )
+    return cachedFeedPosts as TPosts
+  }
+}
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = filterPosts(await getPosts())
+  const posts = await getFeedPostsForStaticBuild()
   await queryClient.prefetchQuery(queryKey.posts(), () => posts)
 
   return {
