@@ -6,6 +6,9 @@ import Category from "src/components/Category"
 import styled from "@emotion/styled"
 import NotionRenderer from "../components/NotionRenderer"
 import usePostQuery from "src/hooks/usePostQuery"
+import TableOfContents from "../components/TableOfContents"
+import { getPostTableOfContents } from "../utils/getPostTableOfContents"
+import type { TPostType } from "src/types"
 
 type Props = {}
 
@@ -15,35 +18,62 @@ const PostDetail: React.FC<Props> = () => {
   if (!data) return null
 
   const category = (data.category && data.category?.[0]) || undefined
+  const type = data.type[0]
+  const shouldShowTableOfContents = isNormalArticleType(type)
+  const tableOfContents = shouldShowTableOfContents
+    ? getPostTableOfContents(data.recordMap, data.id)
+    : []
 
   return (
     <StyledWrapper>
-      <article>
-        {category && (
-          <div css={{ marginBottom: "0.5rem" }}>
-            <Category readOnly={data.status?.[0] === "PublicOnDetail"}>
-              {category}
-            </Category>
+      <StyledArticleCard>
+        <article>
+          {category && (
+            <div css={{ marginBottom: "0.5rem" }}>
+              <Category readOnly={data.status?.[0] === "PublicOnDetail"}>
+                {category}
+              </Category>
+            </div>
+          )}
+          {type === "Post" && <PostHeader data={data} />}
+          <div>
+            <NotionRenderer recordMap={data.recordMap} />
           </div>
-        )}
-        {data.type[0] === "Post" && <PostHeader data={data} />}
-        <div>
-          <NotionRenderer recordMap={data.recordMap} />
-        </div>
-        {data.type[0] === "Post" && (
-          <>
-            <Footer />
-            <CommentBox data={data} />
-          </>
-        )}
-      </article>
+          {type === "Post" && (
+            <>
+              <Footer />
+              <CommentBox data={data} />
+            </>
+          )}
+        </article>
+      </StyledArticleCard>
+      <TableOfContents items={tableOfContents} />
     </StyledWrapper>
   )
 }
 
 export default PostDetail
 
+const isNormalArticleType = (type: TPostType) => {
+  return type === "Post" || type === "Paper"
+}
+
 const StyledWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.25rem;
+  max-width: 70rem;
+  margin: 0 auto;
+
+  @media (max-width: 1100px) {
+    max-width: 56rem;
+  }
+`
+
+const StyledArticleCard = styled.div`
+  flex: 1 1 0;
+  min-width: 0;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   padding-top: 3rem;
@@ -54,7 +84,7 @@ const StyledWrapper = styled.div`
     theme.scheme === "light" ? "white" : theme.colors.gray4};
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  margin: 0 auto;
+
   > article {
     margin: 0 auto;
     max-width: 42rem;
