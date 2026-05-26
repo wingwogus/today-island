@@ -63,6 +63,10 @@ const PostCard: React.FC<Props> = ({ data, showMedia}) => {
 export default PostCard
 
 const StyledWrapper = styled(Link)`
+  display: block;
+  color: inherit;
+  text-decoration: none;
+
   article {
     overflow: hidden;
     position: relative;

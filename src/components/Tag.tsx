@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { useRouter } from "next/router"
-import React from "react"
+import React, { type MouseEvent } from "react"
 
 type Props = {
   children: string
@@ -9,11 +9,13 @@ type Props = {
 const Tag: React.FC<Props> = ({ children }) => {
   const router = useRouter()
 
-  const handleClick = (value: string) => {
+  const handleClick = (event: MouseEvent<HTMLDivElement>, value: string) => {
+    event.preventDefault()
+    event.stopPropagation()
     router.push(`/?tag=${value}`)
   }
   return (
-    <StyledWrapper onClick={() => handleClick(children)}>
+    <StyledWrapper onClick={(event) => handleClick(event, children)}>
       {children.split("::")[2]}
     </StyledWrapper>
   )

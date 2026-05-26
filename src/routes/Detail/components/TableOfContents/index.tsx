@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import type { FC } from "react"
+import type { FC, MouseEvent } from "react"
 import { getTableOfContentsHash } from "src/routes/Detail/utils/getPostTableOfContents"
 import type { PostTableOfContentsItem } from "src/routes/Detail/utils/getPostTableOfContents"
 
@@ -10,6 +10,23 @@ type Props = {
 const TableOfContents: FC<Props> = ({ items }) => {
   if (!items.length) return null
 
+  const handleItemClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    blockId: string
+  ) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return
+    }
+
+    const target = document.getElementById(
+      getTableOfContentsHash(blockId).slice(1)
+    )
+    if (!target) return
+
+    event.preventDefault()
+    target.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+
   return (
     <StyledAside aria-label="Table of contents">
       <div className="tocTitle">목차</div>
@@ -19,6 +36,7 @@ const TableOfContents: FC<Props> = ({ items }) => {
             key={item.id}
             className={`tocItem tocIndent${item.indentLevel}`}
             href={getTableOfContentsHash(item.id)}
+            onClick={(event) => handleItemClick(event, item.id)}
           >
             {item.text}
           </a>

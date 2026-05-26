@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import React from "react"
+import React, { type MouseEvent } from "react"
 import { COLOR_SET } from "./constants"
 import styled from "@emotion/styled"
 import { colors } from "src/styles"
@@ -25,13 +25,15 @@ type Props = {
 const Category: React.FC<Props> = ({ readOnly = false, children }) => {
   const router = useRouter()
 
-  const handleClick = (value: string) => {
+  const handleClick = (event: MouseEvent<HTMLDivElement>, value: string) => {
     if (readOnly) return
+    event.preventDefault()
+    event.stopPropagation()
     router.push(`/?category=${value}`)
   }
   return (
     <StyledWrapper
-      onClick={() => handleClick(children)}
+      onClick={(event) => handleClick(event, children)}
       css={{
         backgroundColor: getColorClassByName(children),
         cursor: readOnly ? "default" : "pointer",
