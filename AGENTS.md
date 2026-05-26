@@ -5,8 +5,8 @@ These instructions apply to the whole repository.
 ## Deployment Invariants
 
 - The homepage `/` must never serve a multipart/RSC boundary as HTML. A valid homepage response starts with `<!DOCTYPE html>` and must not start with `--<boundary>` or include `Next-Router-State-Tree` before the document.
-- Keep `src/pages/index.tsx` on Pages Router SSR with `Cache-Control: no-store` unless you have verified the live Vercel response after deployment. Do not casually switch it back to `getStaticProps`, ISR, or an App Router page.
-- Keep homepage SSR fast by using `src/generated/homepage-posts-cache.json` as the default feed source. Only fetch live Notion on the homepage when explicitly opting in with `HOMEPAGE_POSTS_SOURCE=notion`, and keep the JSON fallback intact.
+- Keep `src/pages/index.tsx` on Pages Router SSG backed by `src/generated/homepage-posts-cache.json` by default. Do not switch it to an App Router page, live Notion SSR, or ISR unless you have verified the live Vercel response after deployment.
+- Keep homepage rendering fast by using `src/generated/homepage-posts-cache.json` as the default feed source. Only fetch live Notion on the homepage when explicitly opting in with `HOMEPAGE_POSTS_SOURCE=notion`, and keep the JSON fallback intact.
 - After any deployment-related change, verify the canonical production URL:
   `curl -sS -D /tmp/today.headers https://www.jaehyuns.com/ -o /tmp/today.body`
   Then confirm `/tmp/today.body` starts with `<!DOCTYPE html>` and does not contain an outer multipart boundary like `--53...`.

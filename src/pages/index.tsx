@@ -4,7 +4,7 @@ import { NextPageWithLayout } from "../types"
 import { getPosts } from "../apis"
 import MetaConfig from "src/components/MetaConfig"
 import { queryKey } from "src/constants/queryKey"
-import { GetServerSideProps } from "next"
+import { GetStaticProps } from "next"
 import { QueryClient, dehydrate } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
 import cachedFeedPosts from "src/generated/homepage-posts-cache.json"
@@ -30,9 +30,7 @@ const getFeedPosts = async () => {
   }
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  res.setHeader("Cache-Control", "no-store, max-age=0")
-
+export const getStaticProps: GetStaticProps = async () => {
   const posts = await getFeedPosts()
   const serverQueryClient = new QueryClient()
   await serverQueryClient.prefetchQuery(queryKey.posts(), () => posts)
