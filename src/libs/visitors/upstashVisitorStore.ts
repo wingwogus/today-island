@@ -14,7 +14,8 @@ type Options = {
 }
 
 const DEFAULT_KEY_PREFIX = "today-island"
-const TOTAL_KEY = "visitors:total"
+const TOTAL_VISITORS_KEY = "visitors:unique:total"
+const DAILY_VISITORS_TTL_SECONDS = 60 * 60 * 24 * 2
 
 export const createUpstashVisitorStoreFromEnv = (): VisitorStore | null => {
   const restUrl =
@@ -40,7 +41,8 @@ export const createUpstashVisitorStore = ({
   const prefix = (keyPrefix || DEFAULT_KEY_PREFIX).replace(/:+$/, "")
 
   const key = (name: string) => `${prefix}:${name}`
-  const todayKey = (dateKey: string) => key(`visitors:daily:${dateKey}`)
+  const todayVisitorsKey = (dateKey: string) =>
+    key(`visitors:unique:daily:${dateKey}`)
 
   const execute = async (commands: UpstashCommand[]) => {
     const response = await fetch(`${baseUrl}/pipeline`, {
@@ -71,8 +73,8 @@ export const createUpstashVisitorStore = ({
     })
   }
 
-  const toCount = (value: unknown, fallback = 0) => {
-    if (value === null || value === undefined) return fallback
+  const toCount = (value: unknown) => {
+    if (value === null || value === undefined) return 0
     if (typeof value === "number" && Number.isFinite(value)) return value
     if (typeof value === "string") {
       const parsed = Number(value)
@@ -90,20 +92,24 @@ export const createUpstashVisitorStore = ({
   return {
     async getCounts(dateKey) {
       const results = await execute([
-        ["GET", key(TOTAL_KEY)],
-        ["GET", todayKey(dateKey)],
+        ["SCARD", key(TOTAL_VISITORS_KEY)],
+        ["SCARD", todayVisitorsKey(dateKey)],
       ])
 
       return toCounts(results)
     },
 
-    async incrementAndGetCounts(dateKey) {
+    async trackVisitor(dateKey, visitorId) {
+      const todayKey = todayVisitorsKey(dateKey)
       const results = await execute([
-        ["INCR", key(TOTAL_KEY)],
-        ["INCR", todayKey(dateKey)],
+        ["SADD", key(TOTAL_VISITORS_KEY), visitorId],
+        ["SADD", todayKey, visitorId],
+        ["EXPIRE", todayKey, DAILY_VISITORS_TTL_SECONDS],
+        ["SCARD", key(TOTAL_VISITORS_KEY)],
+        ["SCARD", todayKey],
       ])
 
-      return toCounts(results)
+      return toCounts(results.slice(3))
     },
   }
 }

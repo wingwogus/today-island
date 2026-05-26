@@ -10,8 +10,12 @@ import { filterPosts } from "src/libs/utils/notion"
 import cachedFeedPosts from "src/generated/homepage-posts-cache.json"
 import { TPosts } from "src/types"
 
+const shouldFetchFreshHomepagePosts = () =>
+  process.env.HOMEPAGE_POSTS_SOURCE === "notion" &&
+  process.env.FORCE_HOMEPAGE_POSTS_CACHE !== "true"
+
 const getFeedPosts = async () => {
-  if (process.env.FORCE_HOMEPAGE_POSTS_CACHE === "true") {
+  if (!shouldFetchFreshHomepagePosts()) {
     return cachedFeedPosts as TPosts
   }
 

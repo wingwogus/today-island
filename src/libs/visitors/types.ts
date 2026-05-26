@@ -5,5 +5,8 @@ export type VisitorCounts = {
 
 export type VisitorStore = {
   getCounts: (dateKey: string) => Promise<VisitorCounts>
-  incrementAndGetCounts: (dateKey: string) => Promise<VisitorCounts>
+  trackVisitor: (
+    dateKey: string,
+    visitorId: string
+  ) => Promise<VisitorCounts>
 }

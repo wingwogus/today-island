@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import React, { useEffect, useState } from "react"
-import { AiOutlineCalendar, AiOutlineEye } from "react-icons/ai"
+import { AiOutlineCalendar, AiOutlineEye, AiOutlineUser } from "react-icons/ai"
 
 type VisitorCounterResponse = {
   enabled: boolean
@@ -21,6 +21,7 @@ const requestVisitorCounts = () => {
       headers: {
         Accept: "application/json",
       },
+      credentials: "same-origin",
       cache: "no-store",
     })
       .then(async (response) => {
@@ -59,18 +60,27 @@ const VisitorCounter: React.FC<Props> = ({ className }) => {
   if (!counts?.enabled) return null
 
   return (
-    <StyledWrapper className={className} aria-label="방문 횟수">
-      <div className="item">
-        <AiOutlineEye className="icon" />
-        <span className="label">전체</span>
-        <strong>{formatCount(counts.total)}</strong>
+    <StyledWrapper className={className} aria-label="방문자 수">
+      <div className="heading">
+        <AiOutlineEye className="headingIcon" />
+        <span>Visitors</span>
       </div>
-      <div className="divider" />
-      <div className="item">
-        <AiOutlineCalendar className="icon" />
-        <span className="label">오늘</span>
-        <strong>{formatCount(counts.today)}</strong>
-      </div>
+      <dl className="stats">
+        <div className="row">
+          <dt>
+            <AiOutlineUser className="icon" />
+            <span>전체 방문자</span>
+          </dt>
+          <dd>{formatCount(counts.total)}</dd>
+        </div>
+        <div className="row">
+          <dt>
+            <AiOutlineCalendar className="icon" />
+            <span>오늘 방문자</span>
+          </dt>
+          <dd>{formatCount(counts.today)}</dd>
+        </div>
+      </dl>
     </StyledWrapper>
   )
 }
@@ -78,46 +88,73 @@ const VisitorCounter: React.FC<Props> = ({ className }) => {
 export default VisitorCounter
 
 const StyledWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
   width: 100%;
-  margin-top: 0.75rem;
-  padding: 0.75rem 0.5rem 0.25rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray5};
+  margin-top: 0.875rem;
+  padding: 0.75rem;
+  border: 1px solid ${({ theme }) => theme.colors.gray5};
+  border-radius: 0.75rem;
+  background-color: ${({ theme }) =>
+    theme.scheme === "light" ? theme.colors.gray2 : theme.colors.gray3};
   color: ${({ theme }) => theme.colors.gray11};
 
-  .item {
+  .heading {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray5};
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+  }
+
+  .headingIcon {
+    width: 0.9375rem;
+    height: 0.9375rem;
+    flex: 0 0 auto;
+  }
+
+  .stats {
     display: grid;
-    grid-template-columns: auto auto;
-    justify-content: center;
-    gap: 0.125rem 0.375rem;
+    gap: 0.125rem;
+    margin: 0;
+    padding: 0.5rem 0 0;
+  }
+
+  .row,
+  dt {
+    display: flex;
+    align-items: center;
     min-width: 0;
   }
 
+  .row {
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 1.75rem;
+  }
+
+  dt {
+    gap: 0.375rem;
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    color: ${({ theme }) => theme.colors.gray11};
+  }
+
   .icon {
-    width: 1rem;
-    height: 1rem;
-    align-self: center;
+    width: 0.9375rem;
+    height: 0.9375rem;
+    flex: 0 0 auto;
   }
 
-  .label {
-    font-size: 0.75rem;
-    line-height: 1rem;
-  }
-
-  strong {
-    grid-column: 1 / -1;
+  dd {
+    margin: 0;
     color: ${({ theme }) => theme.colors.gray12};
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     line-height: 1.25rem;
     font-weight: 700;
-    text-align: center;
-  }
-
-  .divider {
-    width: 1px;
-    height: 2rem;
-    background-color: ${({ theme }) => theme.colors.gray5};
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 `
