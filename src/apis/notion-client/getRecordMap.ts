@@ -2,6 +2,7 @@ import { NotionAPI } from "notion-client"
 import { getBlockCollectionId, getPageContentBlockIds } from "notion-utils"
 
 import { normalizeRecordMapForReactNotionX } from "src/libs/utils/notion/normalizeRecordMapForReactNotionX"
+import { withNotionRetry } from "src/libs/utils/notion/withNotionRetry"
 
 const MAX_BACKFILL_ROUNDS = 10
 const RECORD_MAP_SECTION_KEYS = [
@@ -27,7 +28,9 @@ function mergeRecordMaps(base: any, next: any): any {
 }
 
 function normalizeWithDefaults(recordMap: any): any {
-  const normalizedRecordMap = normalizeRecordMapForReactNotionX(recordMap as any)
+  const normalizedRecordMap = normalizeRecordMapForReactNotionX(
+    recordMap as any
+  )
   const recordMapWithDefaults: any = { ...normalizedRecordMap }
 
   for (const key of RECORD_MAP_SECTION_KEYS) {
@@ -37,7 +40,10 @@ function normalizeWithDefaults(recordMap: any): any {
   return recordMapWithDefaults
 }
 
-function attachDiagnostics(recordMap: any, diagnostics: Record<string, unknown>): any {
+function attachDiagnostics(
+  recordMap: any,
+  diagnostics: Record<string, unknown>
+): any {
   return Object.defineProperty(recordMap, "__omxDiagnostics", {
     value: diagnostics,
     enumerable: false,
@@ -47,7 +53,9 @@ function attachDiagnostics(recordMap: any, diagnostics: Record<string, unknown>)
 
 export async function getRecordMap(pageId: string): Promise<any> {
   const api = new NotionAPI()
-  const page = await api.getPageRaw(pageId)
+  const page = await withNotionRetry("getRecordMap:getPageRaw", () =>
+    api.getPageRaw(pageId)
+  )
 
   let recordMap = normalizeWithDefaults(page.recordMap)
   let unresolvedBlockIds: string[] = []
@@ -66,7 +74,11 @@ export async function getRecordMap(pageId: string): Promise<any> {
     }
 
     rounds += 1
-    const fetchedBlocks = (await api.getBlocks(pendingBlockIds)).recordMap
+    const fetchedBlocks = (
+      await withNotionRetry("getRecordMap:getBlocks", () =>
+        api.getBlocks(pendingBlockIds)
+      )
+    ).recordMap
     const nextRecordMap = normalizeWithDefaults(
       mergeRecordMaps(recordMap, fetchedBlocks)
     )
@@ -92,7 +104,8 @@ export async function getRecordMap(pageId: string): Promise<any> {
     const block = recordMap.block[blockId]?.value
     const collectionId =
       block &&
-      (block.type === "collection_view" || block.type === "collection_view_page") &&
+      (block.type === "collection_view" ||
+        block.type === "collection_view_page") &&
       getBlockCollectionId(block, recordMap)
 
     if (!collectionId) {
@@ -112,10 +125,10 @@ export async function getRecordMap(pageId: string): Promise<any> {
     if (!collectionView) continue
 
     try {
-      const collectionData = await api.getCollectionData(
-        collectionId,
-        collectionViewId,
-        collectionView
+      const collectionData = await withNotionRetry(
+        "getRecordMap:getCollectionData",
+        () =>
+          api.getCollectionData(collectionId, collectionViewId, collectionView)
       )
 
       recordMap = normalizeWithDefaults(
@@ -136,7 +149,12 @@ export async function getRecordMap(pageId: string): Promise<any> {
     }
   }
 
-  await api.addSignedUrls({ recordMap, contentBlockIds: getPageContentBlockIds(recordMap) })
+  await withNotionRetry("getRecordMap:addSignedUrls", () =>
+    api.addSignedUrls({
+      recordMap,
+      contentBlockIds: getPageContentBlockIds(recordMap),
+    })
+  )
 
   const diagnostics = {
     unresolvedBlockIds,

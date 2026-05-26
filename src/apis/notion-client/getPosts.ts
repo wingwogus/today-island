@@ -4,6 +4,7 @@ import { idToUuid } from "notion-utils"
 
 import getAllPageIds from "src/libs/utils/notion/getAllPageIds"
 import getPageProperties from "src/libs/utils/notion/getPageProperties"
+import { withNotionRetry } from "src/libs/utils/notion/withNotionRetry"
 import { TPosts } from "src/types"
 
 /**
@@ -15,9 +16,12 @@ export const getPosts = async () => {
   let id = CONFIG.notionConfig.pageId as string
   const api = new NotionAPI()
 
-  const response = await api.getPage(id)
+  const response = await withNotionRetry("getPosts:getPage", () =>
+    api.getPage(id)
+  )
   id = idToUuid(id)
-  const collection = (Object.values(response.collection)[0] as any)?.value?.value
+  const collection = (Object.values(response.collection)[0] as any)?.value
+    ?.value
   const block = response.block
   const schema = collection?.schema
 
@@ -43,16 +47,21 @@ export const getPosts = async () => {
 
     const pageIds = primaryMissing
       ? (
-          ((await api.getCollectionData(
-            rawCollectionId,
-            rawViewId,
-            response.collection_view?.[rawViewId]?.value
-          )).result as any)?.reducerResults?.collection_group_results
-            ?.blockIds || []
-        )
+          (
+            await withNotionRetry("getPosts:getCollectionData", () =>
+              api.getCollectionData(
+                rawCollectionId,
+                rawViewId,
+                response.collection_view?.[rawViewId]?.value
+              )
+            )
+          ).result as any
+        )?.reducerResults?.collection_group_results?.blockIds || []
       : getAllPageIds(response, rawViewId)
 
-    const tempBlock = await (await api.getBlocks(pageIds)).recordMap.block
+    const tempBlock = await (
+      await withNotionRetry("getPosts:getBlocks", () => api.getBlocks(pageIds))
+    ).recordMap.block
 
     const data = []
     for (let i = 0; i < pageIds.length; i++) {
@@ -61,11 +70,9 @@ export const getPosts = async () => {
       const properties =
         (await getPageProperties(id, tempBlock, schema)) || null
       if (!blockValue) continue
-      
+
       // Add fullwidth, createdtime to properties
-      properties.createdTime = new Date(
-        blockValue?.created_time
-      ).toString()
+      properties.createdTime = new Date(blockValue?.created_time).toString()
       properties.fullWidth =
         (blockValue?.format as any)?.page_full_width ?? false
 
