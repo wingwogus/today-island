@@ -11,7 +11,8 @@
     "build": "next build",
     "start": "next start",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "refresh:homepage-cache": "node scripts/refresh-homepage-posts-cache.js"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
