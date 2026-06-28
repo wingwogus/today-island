@@ -19,11 +19,15 @@ function createSlugFromTitle(title) {
 /**
  * Mutates a post-like object so title-derived routing wins over manual slugs.
  *
- * @template {{ title?: unknown, slug?: string }} T
+ * @template {{ title?: unknown, slug?: string, type?: string[], status?: string[] }} T
  * @param {T} post
  * @returns {T}
  */
 function applyTitleSlug(post) {
+  if (post?.type?.[0] === "Page" || post?.status?.[0] === "PublicOnDetail") {
+    return post
+  }
+
   const titleSlug = createSlugFromTitle(post?.title)
 
   if (titleSlug) {

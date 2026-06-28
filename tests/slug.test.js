@@ -21,10 +21,32 @@ test("uses the title slug instead of a manually entered Notion slug", () => {
   const post = {
     title: "[주간 회고] 2026.06.15 ~ 2026.06.21",
     slug: "manual-weekly-slug",
+    type: ["Post"],
   }
 
   assert.equal(
     applyTitleSlug(post).slug,
     "주간-회고-2026-06-15-2026-06-21"
   )
+})
+
+test("keeps manually configured slugs for static pages", () => {
+  const page = {
+    title: "About Me",
+    slug: "about",
+    type: ["Page"],
+  }
+
+  assert.equal(applyTitleSlug(page).slug, "about")
+})
+
+test("keeps manually configured slugs for public-on-detail posts", () => {
+  const pageLikePost = {
+    title: "Welcome!",
+    slug: "about",
+    type: ["Post"],
+    status: ["PublicOnDetail"],
+  }
+
+  assert.equal(applyTitleSlug(pageLikePost).slug, "about")
 })
