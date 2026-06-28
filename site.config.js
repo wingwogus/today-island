@@ -83,6 +83,17 @@ const CONFIG = {
       label: "💬 Utterances",
     },
   },
+  giscus: {
+    enable: process.env.NEXT_PUBLIC_GISCUS_ENABLE !== "false",
+    config: {
+      repo: process.env.NEXT_PUBLIC_GISCUS_REPO || "wingwogus/today-island",
+      repoId: process.env.NEXT_PUBLIC_GISCUS_REPO_ID || "R_kgDONrt9_w",
+      category: process.env.NEXT_PUBLIC_GISCUS_CATEGORY || "Announcements",
+      categoryId:
+        process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID || "DIC_kwDONrt9_84DAEy7",
+      lang: "ko",
+    },
+  },
   cusdis: {
     enable: false,
     config: {

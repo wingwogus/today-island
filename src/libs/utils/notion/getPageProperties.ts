@@ -1,6 +1,7 @@
 import { getTextContent, getDateValue } from "notion-utils"
 import { NotionAPI } from "notion-client"
 import { BlockMap, CollectionPropertySchemaMap } from "notion-types"
+import { applyTitleSlug } from "src/libs/utils/slug"
 import { customMapImageUrl } from "./customMapImageUrl"
 import { withNotionRetry } from "./withNotionRetry"
 
@@ -84,7 +85,7 @@ async function getPageProperties(
       }
     }
   }
-  return properties
+  return applyTitleSlug(properties)
 }
 
 export { getPageProperties as default }

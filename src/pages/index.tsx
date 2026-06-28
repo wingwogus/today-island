@@ -7,6 +7,7 @@ import { queryKey } from "src/constants/queryKey"
 import { GetStaticProps } from "next"
 import { QueryClient, dehydrate } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
+import { applyTitleSlug } from "src/libs/utils/slug"
 import cachedFeedPosts from "src/generated/homepage-posts-cache.json"
 import { TPosts } from "src/types"
 
@@ -14,19 +15,22 @@ const shouldFetchFreshHomepagePosts = () =>
   process.env.HOMEPAGE_POSTS_SOURCE === "notion" &&
   process.env.FORCE_HOMEPAGE_POSTS_CACHE !== "true"
 
+const withTitleSlugs = (posts: TPosts) =>
+  posts.map((post) => applyTitleSlug({ ...post })) as TPosts
+
 const getFeedPosts = async () => {
   if (!shouldFetchFreshHomepagePosts()) {
-    return cachedFeedPosts as TPosts
+    return withTitleSlugs(cachedFeedPosts as TPosts)
   }
 
   try {
-    return filterPosts(await getPosts())
+    return withTitleSlugs(filterPosts(await getPosts()))
   } catch (error) {
     console.warn(
       "Using cached homepage posts after Notion fetch failure",
       error
     )
-    return cachedFeedPosts as TPosts
+    return withTitleSlugs(cachedFeedPosts as TPosts)
   }
 }
 

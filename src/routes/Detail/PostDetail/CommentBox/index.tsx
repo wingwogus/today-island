@@ -14,6 +14,12 @@ const CusdisComponent = dynamic(
   },
   { ssr: false }
 )
+const GiscusComponent = dynamic(
+  () => {
+    return import("./Giscus")
+  },
+  { ssr: false }
+)
 
 type Props = {
   data: TPost
@@ -23,6 +29,7 @@ const CommentBox: React.FC<Props> = ({ data }) => {
   return (
     <div>
       {CONFIG.utterances.enable && <UtterancesComponent issueTerm={data.id} />}
+      {CONFIG.giscus.enable && <GiscusComponent postId={data.id} />}
       {CONFIG.cusdis.enable && (
         <CusdisComponent id={data.id} slug={data.slug} title={data.title} />
       )}

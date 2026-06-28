@@ -3,6 +3,7 @@ const path = require("path")
 const { NotionAPI } = require("notion-client")
 const { getDateValue, getTextContent, idToUuid } = require("notion-utils")
 const { CONFIG } = require("../site.config")
+const { applyTitleSlug } = require("../src/libs/utils/slug")
 
 const CACHE_PATH = path.join(
   process.cwd(),
@@ -145,7 +146,7 @@ async function getPageProperties(api, id, block, schema) {
     }
   }
 
-  return properties
+  return applyTitleSlug(properties)
 }
 
 function filterHomepagePosts(posts) {
