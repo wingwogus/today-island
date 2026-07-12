@@ -8,12 +8,12 @@ import { GetStaticProps } from "next"
 import { QueryClient, dehydrate } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
 import { applyTitleSlug } from "src/libs/utils/slug"
+import {
+  getHomepageRevalidateSeconds,
+  shouldFetchFreshHomepagePosts,
+} from "src/libs/utils/homepageRevalidation"
 import cachedFeedPosts from "src/generated/homepage-posts-cache.json"
 import { TPosts } from "src/types"
-
-const shouldFetchFreshHomepagePosts = () =>
-  process.env.HOMEPAGE_POSTS_SOURCE === "notion" &&
-  process.env.FORCE_HOMEPAGE_POSTS_CACHE !== "true"
 
 const withTitleSlugs = (posts: TPosts) =>
   posts.map((post) => applyTitleSlug({ ...post })) as TPosts
@@ -43,6 +43,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(serverQueryClient),
     },
+    revalidate: getHomepageRevalidateSeconds(),
   }
 }
 
