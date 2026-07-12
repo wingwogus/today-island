@@ -10,7 +10,7 @@ import { filterPosts } from "src/libs/utils/notion"
 import { applyTitleSlug } from "src/libs/utils/slug"
 import {
   getHomepageRevalidateSeconds,
-  shouldFetchFreshHomepagePosts,
+  shouldForceHomepagePostsCache,
 } from "src/libs/utils/homepageRevalidation"
 import cachedFeedPosts from "src/generated/homepage-posts-cache.json"
 import { TPosts } from "src/types"
@@ -19,7 +19,7 @@ const withTitleSlugs = (posts: TPosts) =>
   posts.map((post) => applyTitleSlug({ ...post })) as TPosts
 
 const getFeedPosts = async () => {
-  if (!shouldFetchFreshHomepagePosts()) {
+  if (shouldForceHomepagePostsCache()) {
     return withTitleSlugs(cachedFeedPosts as TPosts)
   }
 
