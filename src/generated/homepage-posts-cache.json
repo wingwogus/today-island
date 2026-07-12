@@ -1,5 +1,50 @@
 [
   {
+    "id": "3989e2d9-4405-81d4-be7e-cfac124fcb94",
+    "date": {
+      "start_date": "2026-06-30"
+    },
+    "type": [
+      "Post"
+    ],
+    "category": [
+      "✍️ Postmortem"
+    ],
+    "tags": [
+      "4::✍️ Postmortem::Monthly"
+    ],
+    "summary": "정말 사용자가 원하는 건 뭘까? 라는 질문을 계속 하게 된 한 달",
+    "title": "[월간 회고] 2026.06",
+    "status": [
+      "Public"
+    ],
+    "slug": "월간-회고-2026-06",
+    "createdTime": "Thu Jul 09 2026 12:31:25 GMT+0900 (Korean Standard Time)",
+    "fullWidth": false
+  },
+  {
+    "id": "38d9e2d9-4405-80f6-afa6-d3f37668dca2",
+    "date": {
+      "start_date": "2026-06-28"
+    },
+    "type": [
+      "Post"
+    ],
+    "category": [
+      "✍️ Postmortem"
+    ],
+    "tags": [
+      "4::✍️ Postmortem::Weekly"
+    ],
+    "title": "[주간 회고] 2026.06.22 ~ 2026.06.28",
+    "status": [
+      "Public"
+    ],
+    "slug": "주간-회고-2026-06-22-2026-06-28",
+    "createdTime": "Sun Jun 28 2026 21:11:48 GMT+0900 (Korean Standard Time)",
+    "fullWidth": false
+  },
+  {
     "id": "3879e2d9-4405-8135-bf19-f1181024cbf2",
     "date": {
       "start_date": "2026-06-22"
@@ -24,6 +69,28 @@
     "fullWidth": false
   },
   {
+    "id": "38b9e2d9-4405-80bc-bf85-ebc2e0c04aa4",
+    "date": {
+      "start_date": "2026-06-21"
+    },
+    "type": [
+      "Post"
+    ],
+    "slug": "주간-회고-2026-06-15-2026-06-21",
+    "category": [
+      "✍️ Postmortem"
+    ],
+    "tags": [
+      "4::✍️ Postmortem::Weekly"
+    ],
+    "title": "[주간 회고] 2026.06.15 ~ 2026.06.21",
+    "status": [
+      "Public"
+    ],
+    "createdTime": "Fri Jun 26 2026 19:36:06 GMT+0900 (Korean Standard Time)",
+    "fullWidth": false
+  },
+  {
     "id": "37f9e2d9-4405-81cb-b475-e960bf92ea55",
     "date": {
       "start_date": "2026-06-14"
@@ -32,7 +99,7 @@
     "type": [
       "Post"
     ],
-    "slug": "코드트리-청약-챌린지-6회차-dp로-코테-문제-접근법-정리하기",
+    "slug": "코드트리-청약-챌린지-6회차-DP-정리하기",
     "category": [
       "✍️ Postmortem"
     ],
@@ -359,7 +426,7 @@
     "type": [
       "Post"
     ],
-    "slug": "주간-회고-20260330-20260405",
+    "slug": "주간-회고-2026-03-30-2026-04-05",
     "category": [
       "✍️ Postmortem"
     ],
@@ -430,7 +497,7 @@
     "type": [
       "Post"
     ],
-    "slug": "Kubernetes-Jenkins로-CICD-환경-구성해보기",
+    "slug": "Kubernetes-Jenkins로-CI-CD-환경-구성해보기",
     "category": [
       "🐳 DevOps"
     ],
@@ -501,7 +568,7 @@
     "type": [
       "Post"
     ],
-    "slug": "Kubernetes-각 리소스-별-동작으로-쿠버네티스-전반-이해하기",
+    "slug": "Kubernetes-각-리소스-별-동작으로-쿠버네티스-전반-이해하기",
     "category": [
       "🐳 DevOps"
     ],
@@ -549,7 +616,7 @@
     "type": [
       "Post"
     ],
-    "slug": "Kubernetes-ConfigMap과-Secret-둘은-뭐가-다를까",
+    "slug": "Kubernetes-Configmap과-Secret-둘은-뭐가-다를까",
     "category": [
       "🐳 DevOps"
     ],
@@ -572,7 +639,7 @@
     "type": [
       "Post"
     ],
-    "slug": "주간-회고-2026-02-09-2026-02-15",
+    "slug": "주간-회고-2026-02-16-2026-02-22",
     "category": [
       "✍️ Postmortem"
     ],
@@ -596,7 +663,7 @@
     "type": [
       "Post"
     ],
-    "slug": "kubernetes-probe-제대로-이해하기-왜-내-pod는-자꾸-재시작될까",
+    "slug": "Kubernetes-Probe-제대로-이해하기-왜-내-Pod는-자꾸-재시작될까",
     "category": [
       "🐳 DevOps"
     ],
@@ -667,7 +734,7 @@
     "type": [
       "Post"
     ],
-    "slug": "kubernetes-Mac에서-UTM으로-쿠버네티스-환경-구축하기",
+    "slug": "Kubernetes-Mac에서-UTM으로-쿠버네티스-환경-구축하기",
     "category": [
       "🐳 DevOps"
     ],
@@ -691,7 +758,7 @@
     "type": [
       "Post"
     ],
-    "slug": "kubernetes-컨테이너란-쿠버네티스란",
+    "slug": "Kubernetes-컨테이너란-쿠버네티스란",
     "category": [
       "🐳 DevOps"
     ],
@@ -738,7 +805,7 @@
     "type": [
       "Post"
     ],
-    "slug": "주간-회고-2026-01-19-2026-01-25",
+    "slug": "주간-회고-2026-01-19-2025-01-25",
     "category": [
       "✍️ Postmortem"
     ],
@@ -809,7 +876,7 @@
     "type": [
       "Post"
     ],
-    "slug": "연간-회고-2025년",
+    "slug": "연간-회고-뿌듯함과-동시에-고민이-많았던-2025년",
     "category": [
       "✍️ Postmortem"
     ],
@@ -903,7 +970,7 @@
     "type": [
       "Post"
     ],
-    "slug": "웹소켓을-사용하여-변경-사항을-실시간으로-전달해보자",
+    "slug": "WebSocket-웹소켓을-사용하여-실시간으로-데이터를-전송해보자",
     "category": [
       "💻 BackEnd"
     ],
@@ -997,7 +1064,7 @@
     "type": [
       "Post"
     ],
-    "slug": "데이터가-존재하는-DB에-Flyway를-사용하여-데이터베이스-마이그레이션하기",
+    "slug": "DB-데이터가-존재하는-DB에-Flyway를-사용하여-데이터베이스-마이그레이션하기",
     "category": [
       "💻 BackEnd"
     ],
@@ -1022,7 +1089,7 @@
     "type": [
       "Post"
     ],
-    "slug": "서버-에러-로그를-디스코드-웹훅을-사용해-전송해보자",
+    "slug": "Log-서버-에러-로그를-디스코드-웹훅을-사용해-전송해보자",
     "category": [
       "💻 BackEnd"
     ],
@@ -1092,7 +1159,7 @@
     "type": [
       "Post"
     ],
-    "slug": "카카오-소셜-로그인-OIDC-방식으로-구현하기",
+    "slug": "Auth-카카오-소셜-로그인-OIDC-방식으로-구현하기-Spring-Swift",
     "category": [
       "💻 BackEnd"
     ],
@@ -1139,7 +1206,7 @@
     "type": [
       "Post"
     ],
-    "slug": "home-server-6",
+    "slug": "N100-홈서버-구축기-5-Github-Actions-활용하여-자동-배포하기",
     "category": [
       "🐳 DevOps"
     ],
@@ -1162,7 +1229,7 @@
     "type": [
       "Post"
     ],
-    "slug": "home-server-4",
+    "slug": "N100-홈서버-구축기-4-Docker로-DB-및-백엔드-프론트엔드-컨테이너-실행",
     "category": [
       "🐳 DevOps"
     ],
@@ -1185,7 +1252,7 @@
     "type": [
       "Post"
     ],
-    "slug": "home-server-3",
+    "slug": "N100-홈서버-구축기-3-Nginx를-사용한-서버-구조-설계",
     "category": [
       "🐳 DevOps"
     ],
@@ -1208,7 +1275,7 @@
     "type": [
       "Post"
     ],
-    "slug": "home-server-2",
+    "slug": "N100-홈서버-구축기-2-Ubuntu-설치-및-SSH-설정",
     "category": [
       "🐳 DevOps"
     ],
@@ -1231,7 +1298,7 @@
     "type": [
       "Post"
     ],
-    "slug": "home-server-1",
+    "slug": "N100-홈서버-구축기-1-하드웨어-구매",
     "category": [
       "🐳 DevOps"
     ],
@@ -1254,7 +1321,7 @@
     "type": [
       "Post"
     ],
-    "slug": "auth-oauth-1",
+    "slug": "Auth-OAuth-2-0-정리-개념부터-사용",
     "category": [
       "💻 BackEnd"
     ],
@@ -1277,7 +1344,7 @@
     "type": [
       "Post"
     ],
-    "slug": "auth-jwt-3",
+    "slug": "Auth-Spring-JWT-로그인-구현-2",
     "category": [
       "💻 BackEnd"
     ],
@@ -1301,7 +1368,7 @@
     "type": [
       "Post"
     ],
-    "slug": "auth-jwt-2",
+    "slug": "Auth-Spring-JWT-로그인-구현-1",
     "category": [
       "💻 BackEnd"
     ],
@@ -1325,7 +1392,7 @@
     "type": [
       "Post"
     ],
-    "slug": "auth-jwt-1",
+    "slug": "Auth-JWT란-무엇인가",
     "category": [
       "💻 BackEnd"
     ],
@@ -1348,7 +1415,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-analyze",
+    "slug": "Spring-Data-JPA-스프링-데이터-JPA-분석",
     "category": [
       "💻 BackEnd"
     ],
@@ -1371,7 +1438,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-extensions",
+    "slug": "Spring-Data-JPA-확장-기능",
     "category": [
       "💻 BackEnd"
     ],
@@ -1394,7 +1461,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-bulk-eg-hint",
+    "slug": "Spring-Data-JPA-벌크성-쿼리-엔티티-그래프-JPA-Hint-Lock",
     "category": [
       "💻 BackEnd"
     ],
@@ -1418,7 +1485,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-paging-sort",
+    "slug": "Spring-Data-JPA-간편하게-페이징과-정렬하기-Paging-Sort",
     "category": [
       "💻 BackEnd"
     ],
@@ -1442,7 +1509,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-query-method",
+    "slug": "Spring-Data-JPA-쿼리를-알아서-짜준다고-쿼리-메소드",
     "category": [
       "💻 BackEnd"
     ],
@@ -1466,7 +1533,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-common-repository",
+    "slug": "Spring-Data-JPA-Repository-상속자들-공통-인터페이스",
     "category": [
       "💻 BackEnd"
     ],
@@ -1490,7 +1557,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-optimizing-collection-inquiry",
+    "slug": "JPA-컬렉션-조회-최적화",
     "category": [
       "💻 BackEnd"
     ],
@@ -1514,7 +1581,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-optimizing-lazy-loading",
+    "slug": "JPA-지연-로딩-조회-성능-최적화",
     "category": [
       "💻 BackEnd"
     ],
@@ -1538,7 +1605,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-api-basic",
+    "slug": "JPA-내-정보를-알고-싶다고-API-개발-기본",
     "category": [
       "💻 BackEnd"
     ],
@@ -1562,7 +1629,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-jpql-2",
+    "slug": "JPA-한-번에-해결하고-싶다고-JPQL-2",
     "category": [
       "💻 BackEnd"
     ],
@@ -1586,7 +1653,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-jpql-1",
+    "slug": "JPA-직접-쿼리를-만들어야만-할-때-JPQL-1",
     "category": [
       "💻 BackEnd"
     ],
@@ -1610,7 +1677,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-value-type",
+    "slug": "JPA-엔티티는-아닌데-엔티티-같은-너-값-타입",
     "category": [
       "💻 BackEnd"
     ],
@@ -1634,7 +1701,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-cascade",
+    "slug": "JPA-우리-엄마-찾습니다-영속성-전이-고아-객체",
     "category": [
       "💻 BackEnd"
     ],
@@ -1658,7 +1725,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-proxy",
+    "slug": "JPA-주인공은-마지막에-등장하는-법-프록시",
     "category": [
       "💻 BackEnd"
     ],
@@ -1682,7 +1749,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-advanced-mapping",
+    "slug": "JPA-엔티티도-부모-있다-고급-매핑",
     "category": [
       "💻 BackEnd"
     ],
@@ -1706,7 +1773,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-various-relationship",
+    "slug": "JPA-각자의-연애는-다른-법이야-다양한-연관관계-매핑",
     "category": [
       "💻 BackEnd"
     ],
@@ -1730,7 +1797,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-relationship",
+    "slug": "JPA-우리-연관됐어요-연관관계-매핑",
     "category": [
       "💻 BackEnd"
     ],
@@ -1754,7 +1821,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-pk-mapping",
+    "slug": "JPA-기본키-너의-이름은-기본키-매핑",
     "category": [
       "💻 BackEnd"
     ],
@@ -1778,7 +1845,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-entity-mapping",
+    "slug": "JPA-DB와-JPA의-소개팅-시간-엔티티-매핑",
     "category": [
       "💻 BackEnd"
     ],
@@ -1802,7 +1869,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-persist",
+    "slug": "JPA-내가-왜-persist인지-알려줄게-영속성-관리",
     "category": [
       "💻 BackEnd"
     ],
@@ -1826,7 +1893,7 @@
     "type": [
       "Post"
     ],
-    "slug": "jpa-start",
+    "slug": "JPA-모든-게-객체인-세상-JPA-개요",
     "category": [
       "💻 BackEnd"
     ],
@@ -1849,7 +1916,7 @@
     "type": [
       "Post"
     ],
-    "slug": "http-tcp-ip",
+    "slug": "HTTP-인터넷-네트워크-정리-TCP-IP",
     "category": [
       "🤖 CS"
     ],
@@ -1872,7 +1939,7 @@
     "type": [
       "Post"
     ],
-    "slug": "http-uri-url-urn",
+    "slug": "HTTP-URI-URL-URN-삼형제-등장",
     "category": [
       "🤖 CS"
     ],
@@ -1895,7 +1962,7 @@
     "type": [
       "Post"
     ],
-    "slug": "spring-bean-scope",
+    "slug": "Spring-빈이-언제-죽는다고-생각하나-빈-스코프",
     "category": [
       "💻 BackEnd"
     ],
@@ -1918,7 +1985,7 @@
     "type": [
       "Post"
     ],
-    "slug": "spring-bean-lifecycle",
+    "slug": "Spring-흘러가는-대로-사는-인생-빈-생명주기",
     "category": [
       "💻 BackEnd"
     ],
@@ -1941,7 +2008,7 @@
     "type": [
       "Post"
     ],
-    "slug": "spring-dependency-injection",
+    "slug": "Spring-롬복의-은혜-끝이-없네-의존관계-주입",
     "category": [
       "💻 BackEnd"
     ],
@@ -1964,7 +2031,7 @@
     "type": [
       "Post"
     ],
-    "slug": "spring-component-scan",
+    "slug": "Spring-누가-스프링-빈-좀-찾아줘-컴포넌트-스캔",
     "category": [
       "💻 BackEnd"
     ],
@@ -1987,7 +2054,7 @@
     "type": [
       "Post"
     ],
-    "slug": "spring-singleton",
+    "slug": "Spring-혼자야-어-나-싱글톤이야-싱글톤-패턴",
     "category": [
       "💻 BackEnd"
     ],
@@ -2010,7 +2077,7 @@
     "type": [
       "Post"
     ],
-    "slug": "spring-container",
+    "slug": "Spring-구현체-내가-어디까지-해줘야-해-2-스프링-원리",
     "category": [
       "💻 BackEnd"
     ],
@@ -2033,7 +2100,7 @@
     "type": [
       "Post"
     ],
-    "slug": "spring-appconfig",
+    "slug": "Spring-구현체-내가-어디까지-해줘야-해-1-스프링-원리",
     "category": [
       "💻 BackEnd"
     ],
