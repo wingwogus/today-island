@@ -15,72 +15,109 @@ type ProjectProps = {
   name: string
   period: string
   description: string
-  href?: string
+  links: ResumeLink[]
   details: string[]
   technologies: string[]
 }
 
+type ResumeLink = {
+  label: string
+  href: string
+}
+
 const profileLinks = [
-  { label: "Github", value: "github.com/wingwogus", href: "https://github.com/wingwogus" },
+  { label: "Github", value: "https://github.com/wingwogus", href: "https://github.com/wingwogus" },
   { label: "Email", value: "wingwogus@naver.com", href: "mailto:wingwogus@naver.com" },
-  { label: "Blog", value: "jaehyuns.com", href: "https://jaehyuns.com" },
+  { label: "Blog", value: "https://jaehyuns.com", href: "https://jaehyuns.com" },
 ]
 
 const sideProjects = [
   {
-    name: "NuguSauce",
-    description: "훠궈 소스 공유 커뮤니티",
-    stack: "iOS / Kotlin / Spring",
-    period: "2026.04",
+    name: "MiruMiru (1M | 2명) BE/Infra",
+    description: "일본 대학 커뮤니티 및 학사 지원 서비스",
+    stack: "Kotlin / Spring / PostgreSQL",
+    period: "2026.03",
+    link: { label: "Github", href: "https://github.com/wingwogus/MiruMiru" },
   },
   {
-    name: "Meetny",
+    name: "Meetny (3M | 5명) BE/Infra",
     description: "잉여 티켓 동행 매칭 서비스",
     stack: "Java / Spring / MySQL",
     period: "2025.03 - 2025.06",
-    href: "http://meetny.kro.kr",
+    link: { label: "Github", href: "https://github.com/wingwogus/Meetny-Backend" },
   },
   {
-    name: "RamenLog",
+    name: "RamenLog (3M | 3명) BE/Infra",
     description: "전국 라멘 맛집 리뷰 서비스",
     stack: "Java / Spring / MySQL",
     period: "2024.10 - 2024.11",
-    href: "https://ramenlog.jaehyuns.com",
+    link: {
+      label: "https://ramenlog.jaehyuns.com",
+      href: "https://ramenlog.jaehyuns.com",
+    },
   },
 ]
 
 const representativeProjects: ProjectProps[] = [
   {
-    name: "MiruMiru (3M | 2명) BE/Infra",
-    period: "2026.03 - 진행 중",
-    description: "일본 대학 커뮤니티 및 학사 지원 서비스",
-    href: "https://github.com/wingwogus/mirumiru",
+    name: "ChamChamCham (2M | 5명) BE/Infra",
+    period: "2026.06 ~ 2026.07",
+    description: "초기 농업인을 위한 AI 기반 영농일지 코칭 플랫폼",
+    links: [
+      {
+        label: "App Store Link",
+        href: "https://apps.apple.com/kr/app/%EC%B0%B8%EC%B0%B8%EC%B0%B8-%EC%B0%B8%EB%90%9C-%EB%86%8D%EC%82%AC%EC%9D%98-%EC%8B%9C%EC%9E%91/id6787890539?l=en-GB",
+      },
+      { label: "Github", href: "https://github.com/wingwogus/ChamChamCham" },
+    ],
     details: [
-      "대학 이메일 인증, 닉네임 검증, 전공 선택, JWT 재발급(Access/Refresh 분리)을 포함한 인증·회원가입 백엔드를 구현하고 서비스·API 검증 테스트로 가입 흐름의 예외 케이스를 회귀 방지했습니다.",
-      "게시판·댓글·좋아요·게시글 기반 1:1 채팅·읽음 처리·차단/신고 기능을 구축해 게시글 상호작용부터 대화·제재까지 이어지는 end-to-end 커뮤니티 도메인을 단일 서비스로 설계했습니다.",
-      "강의평 검색·CRUD와 학기별 시간표 조회·수정 API를 구현해 수강 정보 탐색 및 개인 학사 관리 기능을 제공했습니다.",
-      "APNS 푸시 토큰 등록·갱신·만료 처리와 댓글/채팅 이벤트 기반 알림 발송을 연동해 디바이스 단위 토큰 라이프사이클을 관리했습니다.",
-      "서비스 단위 테스트 17개, API·통합 테스트 18개(총 35개)를 작성해 알림 흐름과 핵심 도메인 로직의 회귀 안정성을 강화했습니다.",
+      "커뮤니티 및 카카오/애플/네이버 소셜 로그인 구현",
+      "농업e지 정책 일 1,000건 동기화 및 실패 격리/Upsert/누락 정책 비활성화, SELECT 쿼리 9회→2회로 78% 감소",
+      "최종 수확 기준 재배 주기 분할 및 8개 영농 작업 통계 리포트 구현",
+      "Spring AI/pgvector RAG 구축 및 비동기 처리로 기록 저장 응답시간 2.3초→300ms 단축",
+      "GitHub Actions 및 Docker 배포 자동화로 배포시간 15분→8분 단축, Health Check 및 배포 안전 게이트 적용",
     ],
     technologies: [
-      "Kotlin / Spring / PostgreSQL / Redis / Kubernetes / Docker",
-      "Nginx / OCI / GitHub Actions / Argo CD",
+      "Kotlin / Spring Boot / Spring AI / PostgreSQL / pgvector / Redis / Docker / GitHub Actions / Ollama",
+    ],
+  },
+  {
+    name: "NuguSauce (1M | 1명) 개인프로젝트",
+    period: "2026.04",
+    description: "훠궈 소스 공유 커뮤니티",
+    links: [
+      {
+        label: "App Store Link",
+        href: "https://apps.apple.com/kr/app/%EB%88%84%EA%B5%AC%EC%86%8C%EC%8A%A4-%ED%9B%A0%EA%B6%88-%EC%86%8C%EC%8A%A4-%EA%B3%B5%EC%9C%A0-%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0/id6765720643?l=en-GB",
+      },
+    ],
+    details: [
+      "서비스 기획부터 백엔드, iOS 앱, 배포, 운영까지 전 과정을 1인 개발해 대한민국 App Store 음식 및 음료 무료 앱 최고 136위, 최근 30일 활성 기기 107대 기록",
+      "Kakao/Apple OIDC 검증과 Redis SETNX 기반 nonce 재사용 방지, refresh token 재발급/폐기를 구현하고 출시 후 만료 토큰 세션 유지 문제 해결",
+      "GitHub Actions, Docker, Helm, Argo CD로 커밋 SHA 단위 Kubernetes 배포 및 롤백 체계 구축",
+      "이미지 교체 시 DB 트랜잭션과 Cloudinary 삭제를 분리하고 커밋 후 외부 리소스를 정리해 외부 삭제 실패가 회원 정보 수정 롤백으로 번지지 않도록 장애 격리",
+    ],
+    technologies: [
+      "Kotlin / Spring Boot / PostgreSQL / Redis / Docker / Kubernetes / Swift",
     ],
   },
   {
     name: "TRI-BE (3M | 5명) BE/Infra",
     period: "2025.08 - 2025.11",
     description: "AI 기반 그룹 여행 협업 자동화 플랫폼",
-    href: "https://github.com/wingwogus/tri-be",
+    links: [
+      { label: "https://tri-be.app", href: "https://tri-be.app" },
+      { label: "Github", href: "https://github.com/wingwogus/TRI-BE" },
+    ],
     details: [
-      "STOMP WebSocket 및 이벤트 기반 아키텍처로 일정 공동 편집·채팅을 구현하고, 동시 편집 충돌 방지 및 메시지 순서 보장 로직을 적용했습니다.",
-      "초대 검증 API에서 매 요청마다 발생하던 DB 조회를 Redis TTL 7일 토큰 캐시로 전환해 평균 응답 시간을 38ms에서 3ms로 92% 단축하고, 초대 트래픽 부하를 완화했습니다.",
-      "메시지 10만 건 구간에서 offset 기반 조회 병목을 JMeter로 재현한 뒤 messageId 기준 cursor pagination으로 전환해 p95 latency를 1.6s에서 290ms로 81% 개선했습니다.",
-      "Greedy 기반 채무 관계 분석 알고리즘을 설계해 N명 정산 시 송금 횟수를 최대 (N-1)회까지 최소화하고 사용자 정산 액션 수를 구조적으로 줄였습니다.",
-      "거리 계산 결과를 Redis read-through cache로 저장해 외부 API 호출량을 68% 절감하고 평균 응답 시간을 420ms에서 120ms로 71% 단축했습니다.",
+      "STOMP WebSocket 및 이벤트 기반 아키텍처로 일정 공동 편집·채팅을 구현하고, 동시 편집 충돌 방지 및 채팅방 단위 메시지 순서 보장 로직 적용",
+      "초대 검증 API에서 매 요청마다 발생하던 DB 조회를 Redis TTL 7일 토큰 캐시로 전환, 평균 응답시간 38ms → 3ms(92% 단축) 및 cache hit 구간의 DB read 제거",
+      "메시지 10만 건 구간에서 offset 기반 조회 병목을 JMeter로 재현한 뒤 messageId 기준 cursor pagination으로 전환해 p95 latency 1.6s → 290ms(81% 개선), 페이지 후반부 지연 편차 해소",
+      "Greedy 기반 채무 관계 분석 알고리즘을 설계해 N명 정산을 최대 N-1회 송금으로 완료하도록 설계, 사용자 정산 액션 수를 구조적으로 감소",
+      "거리 계산 결과를 Redis read-through cache로 저장해 외부 API 호출량을 68% 절감하고, 평균 응답시간을 420ms → 120ms(71% 개선)로 단축",
     ],
     technologies: [
-      "Java / Spring / PostgreSQL / Redis / Kubernetes / Docker",
+      "Kotlin / Spring / PostgreSQL / Redis / Kubernetes / Docker",
       "Nginx / OCI / GitHub Actions / Argo CD",
     ],
   },
@@ -103,7 +140,7 @@ const RepresentativeProject = ({
   name,
   period,
   description,
-  href,
+  links,
   details,
   technologies,
 }: ProjectProps) => (
@@ -114,7 +151,11 @@ const RepresentativeProject = ({
       <p>{description}</p>
       <div className="project-meta">
         <span>{period}</span>
-        {href && <ExternalLink href={href}>{href.replace(/^https?:\/\//, "")}</ExternalLink>}
+        {links.map((link) => (
+          <ExternalLink key={link.href} href={link.href}>
+            {link.label}
+          </ExternalLink>
+        ))}
       </div>
     </div>
     <h4>담당</h4>
@@ -162,15 +203,14 @@ const ResumePage: NextPageWithLayout = () => {
         }}
       />
       <StyledResume>
-        <p className="eyebrow">Resume / Backend Developer</p>
         <div className="resume-sheet">
           <aside className="identity-column">
             <div className="photo-frame">
               <Image
-                src="/resume/jaehyun-profile.png"
+                src="/resume/jaehyun-profile.jpg"
                 alt="백엔드 개발자 이재현 프로필 사진"
-                width={620}
-                height={797}
+                width={1731}
+                height={2072}
                 priority
               />
             </div>
@@ -189,14 +229,14 @@ const ResumePage: NextPageWithLayout = () => {
             </div>
 
             <ResumeSection title="Projects" className="support-projects">
-              {sideProjects.map(({ name, description, stack, period, href }) => (
+              {sideProjects.map(({ name, description, stack, period, link }) => (
                 <article key={name}>
                   <h3>{name}</h3>
                   <p>{description}</p>
                   <small>{stack}</small>
                   <div className="support-project-meta">
                     <span>{period}</span>
-                    {href && <ExternalLink href={href}>서비스 보기</ExternalLink>}
+                    <ExternalLink href={link.href}>{link.label}</ExternalLink>
                   </div>
                 </article>
               ))}
@@ -207,10 +247,10 @@ const ResumePage: NextPageWithLayout = () => {
             <ResumeSection title="Profile" className="profile">
               <p>
                 실시간 협업 기능과 GitOps 기반 배포 자동화 경험을 바탕으로, 기능 구현을 넘어
-                Latency·DB I/O·Deployment Lead Time을 수치로 개선하는 백엔드 개발자입니다.
+                latency, DB I/O, deployment lead time을 수치로 개선하는 백엔드 개발자입니다.
               </p>
               <p>
-                Kotlin/Spring 기반 서비스에서 Redis 캐싱, Cursor Pagination, 이벤트 기반 구조를
+                Kotlin/Spring 기반 서비스에서 Redis 캐싱, cursor pagination, 이벤트 기반 구조를
                 적용했고, Kubernetes/Argo CD/GitOps 환경에서 안정적인 배포 체계를 설계했습니다.
               </p>
             </ResumeSection>
@@ -227,14 +267,26 @@ const ResumePage: NextPageWithLayout = () => {
               <aside className="details-column">
                 <ResumeSection title="Awards">
                   <article className="compact-entry">
+                    <h3>신한 스퀘어브릿지 청년 해커톤</h3>
+                    <p>26.07 / 혁신상 / 신한금융희망재단</p>
+                  </article>
+                  <article className="compact-entry">
+                    <h3>포트폴리오 경진대회</h3>
+                    <p>26.07 / 은상 / 명지전문대학</p>
+                  </article>
+                  <article className="compact-entry">
                     <h3>캡스톤 경진대회</h3>
                     <p>25.12 / 금상 / 명지전문대학</p>
                   </article>
                 </ResumeSection>
 
-                <ResumeSection title="OpenSource">
+                <ResumeSection title="OSS Contributions">
                   <article className="compact-entry">
-                    <h3>LitmusChaos 오탈자 및 중복 단어 문서 수정</h3>
+                    <h3>
+                      <ExternalLink href="https://github.com/litmuschaos/litmus/pull/5515">
+                        LitmusChaos 오탈자 및 중복 단어 문서 수정
+                      </ExternalLink>
+                    </h3>
                     <p>26.06</p>
                   </article>
                 </ResumeSection>
@@ -243,7 +295,7 @@ const ResumePage: NextPageWithLayout = () => {
                   <div>
                     <h3>Strong</h3>
                     <p>Java / Kotlin / Spring / MySQL / PostgreSQL</p>
-                    <p>Kubernetes / Docker</p>
+                    <p>Kubernetes / docker</p>
                   </div>
                   <div>
                     <h3>Knowledgeable</h3>
@@ -264,19 +316,29 @@ const ResumePage: NextPageWithLayout = () => {
 
                 <ResumeSection title="Papers">
                   <article className="compact-entry">
-                    <h3>AI 기반의 올인원 여행 플랫폼 ‘Tribe’ 설계 및 구현</h3>
-                    <p>26.01 / 2026 KSCI 동계학술대회 57p</p>
+                    <h3>AI 기반의 올인원 여행 플랫폼 &apos;Tribe&apos; 설계 및 구현</h3>
+                    <p>
+                      26.01 /{" "}
+                      <ExternalLink href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12582141">
+                        2026 KSCI 동계학술대회 577p
+                      </ExternalLink>
+                    </p>
                   </article>
                   <article className="compact-entry">
                     <h3>문화활동 참여 촉진을 위한 신뢰도 및 취향 기반 동행자 매칭 시스템 개발, ‘MEETNY’</h3>
-                    <p>25.07 / 2025 KMAA 추계학술대회 67p</p>
+                    <p>
+                      25.07 /{" "}
+                      <ExternalLink href="https://www.artntech.or.kr/sub/c01_02.html?idx=202&page=1">
+                        2025 KMAIA 국내학술대회 67p
+                      </ExternalLink>
+                    </p>
                   </article>
                 </ResumeSection>
 
                 <ResumeSection title="Communities">
                   <article className="compact-entry">
                     <h3>신한 스퀘어브릿지 청년 해커톤</h3>
-                    <p>26.06 - / 백엔드 / 3기</p>
+                    <p>26.06 ~ 26.07 / 백엔드 / 3기</p>
                   </article>
                   <article className="compact-entry">
                     <h3>2026 오픈소스 컨트리뷰션 아카데미</h3>
@@ -306,25 +368,15 @@ const StyledResume = styled.article`
 
   color: var(--text);
   margin: 0 auto;
-  max-width: 1160px;
-  padding: 2rem 0 4rem;
-
-  .eyebrow {
-    color: var(--muted);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    margin: 0 0 0.75rem;
-    text-transform: uppercase;
-  }
+  max-width: none;
+  padding: 0;
+  width: 100%;
 
   .resume-sheet {
     animation: sheet-enter 520ms ease-out both;
     background: #fff;
-    border: 1px solid #e5e5e5;
-    box-shadow: 0 18px 42px rgba(10, 20, 35, 0.08);
     display: grid;
-    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-columns: 420px minmax(0, 1fr);
     min-height: 100%;
   }
 
@@ -332,7 +384,7 @@ const StyledResume = styled.article`
     border-right: 1px solid #d8dadd;
     display: flex;
     flex-direction: column;
-    padding: 2.5rem 1.5rem;
+    padding: 2rem 4.2rem 4rem;
   }
 
   .photo-frame {
@@ -354,11 +406,11 @@ const StyledResume = styled.article`
 
   h1 {
     color: #383838;
-    font-size: clamp(2.4rem, 5vw, 3.15rem);
+    font-size: clamp(3.4rem, 6vw, 4.75rem);
     font-weight: 800;
     letter-spacing: -0.09em;
     line-height: 0.86;
-    margin: 1rem 0 1.2rem;
+    margin: 1.625rem 0 1.575rem;
   }
 
   h1 span {
@@ -371,18 +423,18 @@ const StyledResume = styled.article`
   .identity-rule {
     background: var(--rule);
     height: 4px;
-    margin-bottom: 1.85rem;
+    margin-bottom: 2.3rem;
     width: 100%;
   }
 
   .profile-links {
     display: grid;
-    gap: 1.35rem;
+    gap: 2.45rem;
   }
 
   .profile-links div {
     display: grid;
-    gap: 0.25rem;
+    gap: 0.85rem;
   }
 
   .profile-links strong,
@@ -392,7 +444,11 @@ const StyledResume = styled.article`
 
   .profile-links strong {
     color: var(--ink);
-    font-size: 1.05rem;
+    font-size: 1.45rem;
+  }
+
+  .profile-links a {
+    font-size: 1.08rem;
   }
 
   a {
@@ -413,7 +469,7 @@ const StyledResume = styled.article`
 
   .resume-content {
     min-width: 0;
-    padding: 2.5rem 3rem 3rem;
+    padding: 3.5rem 4.4rem 3.75rem 1.3rem;
   }
 
   .resume-section {
@@ -427,11 +483,11 @@ const StyledResume = styled.article`
   .resume-section h2 {
     border-bottom: 2px solid var(--rule);
     color: var(--ink);
-    font-size: 1.7rem;
+    font-size: 2.2rem;
     font-weight: 700;
     letter-spacing: -0.055em;
     line-height: 1;
-    margin: 0 0 0.8rem;
+    margin: 0 0 1.5rem;
     padding-bottom: 0.4rem;
   }
 
@@ -440,9 +496,9 @@ const StyledResume = styled.article`
   }
 
   .profile p {
-    font-size: 0.95rem;
+    font-size: 1.25rem;
     letter-spacing: -0.025em;
-    line-height: 1.45;
+    line-height: 1.25;
     margin: 0;
   }
 
@@ -452,9 +508,9 @@ const StyledResume = styled.article`
 
   .content-columns {
     display: grid;
-    gap: 2.75rem;
-    grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.75fr);
-    margin-top: 2.5rem;
+    gap: 6.25rem;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1fr);
+    margin-top: 1.25rem;
   }
 
   .representative-projects {
@@ -462,13 +518,14 @@ const StyledResume = styled.article`
   }
 
   .representative-projects > h2 {
-    font-size: 1.72rem;
+    font-size: 2.2rem;
   }
 
   .timeline-item {
     border-left: 2px solid #3e4144;
-    padding: 0 0 2.25rem 1.1rem;
+    padding: 0 0 0.5rem 1.1rem;
     position: relative;
+    width: 450px;
   }
 
   .timeline-item:last-child {
@@ -476,7 +533,7 @@ const StyledResume = styled.article`
   }
 
   .timeline-item + .timeline-item {
-    padding-top: 2rem;
+    padding-top: 0;
   }
 
   .timeline-dot {
@@ -490,7 +547,7 @@ const StyledResume = styled.article`
   }
 
   .timeline-item + .timeline-item .timeline-dot {
-    top: 2.15rem;
+    top: 0.16rem;
   }
 
   .project-heading h3,
@@ -498,7 +555,7 @@ const StyledResume = styled.article`
   .skills h3,
   .support-projects h3 {
     color: #111;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.035em;
     line-height: 1.25;
@@ -506,7 +563,7 @@ const StyledResume = styled.article`
   }
 
   .project-heading > p {
-    font-size: 0.9rem;
+    font-size: 1.4rem;
     font-weight: 650;
     letter-spacing: -0.03em;
     line-height: 1.4;
@@ -517,7 +574,7 @@ const StyledResume = styled.article`
   .support-project-meta {
     display: flex;
     flex-wrap: wrap;
-    font-size: 0.67rem;
+    font-size: 0.83rem;
     gap: 0.45rem 0.75rem;
     line-height: 1.35;
     margin-top: 0.5rem;
@@ -530,7 +587,7 @@ const StyledResume = styled.article`
   .timeline-item h4,
   .technologies h4 {
     color: #333;
-    font-size: 0.78rem;
+    font-size: 1.25rem;
     font-weight: 700;
     margin: 0.8rem 0 0.35rem;
   }
@@ -543,9 +600,9 @@ const StyledResume = styled.article`
   }
 
   .project-details li {
-    font-size: 0.8rem;
+    font-size: 1.15rem;
     letter-spacing: -0.026em;
-    line-height: 1.45;
+    line-height: 1.5;
     padding-left: 0.08rem;
   }
 
@@ -558,7 +615,7 @@ const StyledResume = styled.article`
   }
 
   .technologies p {
-    font-size: 0.62rem;
+    font-size: 0.83rem;
     line-height: 1.5;
     margin: 0;
     text-transform: uppercase;
@@ -569,59 +626,66 @@ const StyledResume = styled.article`
   }
 
   .details-column .resume-section + .resume-section {
-    margin-top: 2rem;
+    margin-top: 2.75rem;
   }
 
   .details-column .resume-section h2 {
-    font-size: 1.45rem;
+    font-size: 2.2rem;
   }
 
   .compact-entry + .compact-entry {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
   }
 
   .compact-entry p,
   .skills p {
-    font-size: 0.7rem;
+    font-size: 0.94rem;
     letter-spacing: -0.025em;
     line-height: 1.4;
     margin: 0.28rem 0 0;
   }
 
   .skills > div + div {
-    margin-top: 0.9rem;
+    margin-top: 1.5rem;
+  }
+
+  .skills h3 {
+    font-size: 1.5rem;
+  }
+
+  .skills p {
+    font-size: 1.25rem;
   }
 
   .support-projects {
-    margin-top: auto;
-    padding-top: 3.5rem;
+    border-top: 4px solid var(--rule);
+    margin-top: 2.5rem;
+    padding-top: 3rem;
   }
 
   .support-projects article + article {
-    border-top: 1px solid #d1d3d5;
-    margin-top: 1rem;
-    padding-top: 1rem;
+    margin-top: 2.5rem;
   }
 
   .support-projects h3 {
-    font-size: 0.88rem;
+    font-size: 1.25rem;
   }
 
   .support-projects p,
   .support-projects small {
     display: block;
-    font-size: 0.68rem;
+    font-size: 0.94rem;
     line-height: 1.35;
     margin: 0.32rem 0 0;
   }
 
   .support-projects small {
-    font-size: 0.58rem;
+    font-size: 0.83rem;
     text-transform: uppercase;
   }
 
   .support-project-meta {
-    font-size: 0.58rem;
+    font-size: 0.83rem;
   }
 
   @keyframes sheet-enter {
@@ -659,7 +723,7 @@ const StyledResume = styled.article`
 
   @media (max-width: 900px) {
     .resume-sheet {
-      grid-template-columns: 210px minmax(0, 1fr);
+      grid-template-columns: 280px minmax(0, 1fr);
     }
 
     .resume-content {
@@ -667,8 +731,12 @@ const StyledResume = styled.article`
     }
 
     .content-columns {
-      gap: 2rem;
+      gap: 2.5rem;
       grid-template-columns: minmax(0, 1fr);
+    }
+
+    .timeline-item {
+      width: auto;
     }
 
     .details-column {
@@ -684,17 +752,9 @@ const StyledResume = styled.article`
   }
 
   @media (max-width: 640px) {
-    margin: 0 -1rem;
     padding: 0;
 
-    .eyebrow {
-      margin: 1.25rem 1rem 0.65rem;
-    }
-
     .resume-sheet {
-      border-left: 0;
-      border-right: 0;
-      box-shadow: none;
       display: block;
     }
 
@@ -761,6 +821,7 @@ const StyledResume = styled.article`
 
     .timeline-item {
       padding-left: 0.9rem;
+      width: auto;
     }
 
     .details-column {

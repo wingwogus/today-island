@@ -17,11 +17,14 @@ test("provides a native scrollable resume page with the core resume sections", (
   for (const section of [
     "Profile",
     "Representative Projects",
+    "ChamChamCham (2M | 5명) BE/Infra",
+    "NuguSauce (1M | 1명) 개인프로젝트",
+    "OSS Contributions",
+    "포트폴리오 경진대회",
     "Skills",
-    "MiruMiru",
     "TRI-BE",
   ]) {
-    assert.match(resumePage, new RegExp(section))
+    assert.ok(resumePage.includes(section), `missing resume content: ${section}`)
   }
 
   assert.match(resumePage, /jsonLd/)

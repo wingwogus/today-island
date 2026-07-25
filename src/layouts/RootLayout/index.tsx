@@ -5,6 +5,7 @@ import Header from "./Header"
 import styled from "@emotion/styled"
 import Scripts from "src/layouts/RootLayout/Scripts"
 import useGtagEffect from "./useGtagEffect"
+import { useRouter } from "next/router"
 import Prism from "prismjs/prism"
 import 'prismjs/components/prism-markup-templating.js'
 import 'prismjs/components/prism-markup.js'
@@ -46,6 +47,8 @@ type Props = {
 
 const RootLayout = ({ children }: Props) => {
   const [scheme] = useScheme()
+  const { pathname } = useRouter()
+  const isResumePage = pathname === "/resume"
   useGtagEffect()
   useEffect(() => {
     Prism.highlightAll();
@@ -56,8 +59,8 @@ const RootLayout = ({ children }: Props) => {
       <Scripts />
       {/* // TODO: replace react query */}
       {/* {metaConfig.type !== "Paper" && <Header />} */}
-      <Header fullWidth={false} />
-      <StyledMain>{children}</StyledMain>
+      {!isResumePage && <Header fullWidth={false} />}
+      <StyledMain data-resume-page={isResumePage}>{children}</StyledMain>
     </ThemeProvider>
   )
 }
@@ -69,4 +72,9 @@ const StyledMain = styled.main`
   width: 100%;
   max-width: 1120px;
   padding: 0 1rem;
+
+  &[data-resume-page="true"] {
+    max-width: none;
+    padding: 0;
+  }
 `
