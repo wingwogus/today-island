@@ -16,7 +16,7 @@ type ProjectProps = {
   period: string
   description: string
   links: ResumeLink[]
-  details: string[]
+  details: ReactNode[]
   technologies: string[]
 }
 
@@ -71,11 +71,19 @@ const representativeProjects: ProjectProps[] = [
       { label: "Github", href: "https://github.com/wingwogus/ChamChamCham" },
     ],
     details: [
-      "커뮤니티 및 카카오/애플/네이버 소셜 로그인 구현",
-      "농업e지 정책 일 1,000건 동기화 및 실패 격리/Upsert/누락 정책 비활성화, SELECT 쿼리 9회→2회로 78% 감소",
+      <>커뮤니티 및 카카오/애플/네이버 <strong>소셜 로그인 구현</strong></>,
+      <>
+        농업e지 정책 일 1,000건 동기화 및 실패 격리/Upsert/누락 정책 비활성화, SELECT 쿼리{" "}
+        <strong>9회→2회로 78% 감소</strong>
+      </>,
       "최종 수확 기준 재배 주기 분할 및 8개 영농 작업 통계 리포트 구현",
-      "Spring AI/pgvector RAG 구축 및 비동기 처리로 기록 저장 응답시간 2.3초→300ms 단축",
-      "GitHub Actions 및 Docker 배포 자동화로 배포시간 15분→8분 단축, Health Check 및 배포 안전 게이트 적용",
+      <>
+        Spring AI/pgvector <strong>RAG 구축</strong> 및 비동기 처리로 기록 저장 응답시간{" "}
+        <strong>2.3초→300ms 단축</strong>
+      </>,
+      <>
+        GitHub Actions 및 Docker 배포 자동화로 배포시간 <strong>15분→8분 단축</strong>, Health Check 및 배포 안전 게이트 적용
+      </>,
     ],
     technologies: [
       "Kotlin / Spring Boot / Spring AI / PostgreSQL / pgvector / Redis / Docker / GitHub Actions / Ollama",
@@ -92,10 +100,20 @@ const representativeProjects: ProjectProps[] = [
       },
     ],
     details: [
-      "서비스 기획부터 백엔드, iOS 앱, 배포, 운영까지 전 과정을 1인 개발해 대한민국 App Store 음식 및 음료 무료 앱 최고 136위, 최근 30일 활성 기기 107대 기록",
-      "Kakao/Apple OIDC 검증과 Redis SETNX 기반 nonce 재사용 방지, refresh token 재발급/폐기를 구현하고 출시 후 만료 토큰 세션 유지 문제 해결",
-      "GitHub Actions, Docker, Helm, Argo CD로 커밋 SHA 단위 Kubernetes 배포 및 롤백 체계 구축",
-      "이미지 교체 시 DB 트랜잭션과 Cloudinary 삭제를 분리하고 커밋 후 외부 리소스를 정리해 외부 삭제 실패가 회원 정보 수정 롤백으로 번지지 않도록 장애 격리",
+      <>
+        서비스 기획부터 백엔드, iOS 앱, 배포, 운영까지 <strong>전 과정을 1인 개발해</strong> 대한민국 App Store 음식 및 음료 무료 앱{" "}
+        <strong>최고 136위</strong>, 최근 30일 활성 기기 <strong>107대</strong> 기록
+      </>,
+      <>
+        Kakao/Apple OIDC <strong>검증과 Redis SETNX 기반 nonce 재사용 방지</strong>, refresh token 재발급/폐기를 구현하고 출시 후{" "}
+        <strong>만료 토큰 세션 유지 문제 해결</strong>
+      </>,
+      <>
+        GitHub Actions, Docker, Helm, Argo CD로 <strong>커밋 SHA 단위 Kubernetes 배포 및 롤백 체계</strong> 구축
+      </>,
+      <>
+        이미지 교체 시 DB 트랜잭션과 Cloudinary 삭제를 분리하고 <strong>커밋 후 외부 리소스를 정리해</strong> 외부 삭제 실패가 회원 정보 수정 롤백으로 번지지 않도록 장애 격리
+      </>,
     ],
     technologies: [
       "Kotlin / Spring Boot / PostgreSQL / Redis / Docker / Kubernetes / Swift",
@@ -110,11 +128,24 @@ const representativeProjects: ProjectProps[] = [
       { label: "Github", href: "https://github.com/wingwogus/TRI-BE" },
     ],
     details: [
-      "STOMP WebSocket 및 이벤트 기반 아키텍처로 일정 공동 편집·채팅을 구현하고, 동시 편집 충돌 방지 및 채팅방 단위 메시지 순서 보장 로직 적용",
-      "초대 검증 API에서 매 요청마다 발생하던 DB 조회를 Redis TTL 7일 토큰 캐시로 전환, 평균 응답시간 38ms → 3ms(92% 단축) 및 cache hit 구간의 DB read 제거",
-      "메시지 10만 건 구간에서 offset 기반 조회 병목을 JMeter로 재현한 뒤 messageId 기준 cursor pagination으로 전환해 p95 latency 1.6s → 290ms(81% 개선), 페이지 후반부 지연 편차 해소",
-      "Greedy 기반 채무 관계 분석 알고리즘을 설계해 N명 정산을 최대 N-1회 송금으로 완료하도록 설계, 사용자 정산 액션 수를 구조적으로 감소",
-      "거리 계산 결과를 Redis read-through cache로 저장해 외부 API 호출량을 68% 절감하고, 평균 응답시간을 420ms → 120ms(71% 개선)로 단축",
+      <>
+        STOMP WebSocket 및 이벤트 기반 아키텍처로 일정 공동 편집·채팅을 구현하고, <strong>동시 편집 충돌 방지 및 채팅방 단위 메시지 순서 보장 로직</strong> 적용
+      </>,
+      <>
+        초대 검증 API에서 매 요청마다 발생하던 DB 조회를 <strong>Redis TTL 7일 토큰 캐시로</strong> 전환, 평균 응답시간{" "}
+        <strong>38ms → 3ms(92% 단축)</strong> 및 cache hit 구간의 DB read 제거
+      </>,
+      <>
+        메시지 10만 건 구간에서 offset 기반 조회 병목을 JMeter로 재현한 뒤 messageId 기준 cursor pagination으로 전환해{" "}
+        <strong>p95 latency 1.6s → 290ms(81% 개선)</strong>, 페이지 후반부 지연 편차 해소
+      </>,
+      <>
+        Greedy 기반 채무 관계 분석 알고리즘을 설계해 <strong>N명 정산을 최대 N-1회 송금으로 완료하도록 설계</strong>, 사용자 정산 액션 수를 구조적으로 감소
+      </>,
+      <>
+        거리 계산 결과를 Redis read-through cache로 저장해 외부 API 호출량을 <strong>68% 절감</strong>하고, 평균 응답시간을{" "}
+        <strong>420ms → 120ms(71% 개선)</strong>로 단축
+      </>,
     ],
     technologies: [
       "Kotlin / Spring / PostgreSQL / Redis / Kubernetes / Docker",
@@ -145,7 +176,6 @@ const RepresentativeProject = ({
   technologies,
 }: ProjectProps) => (
   <article className="timeline-item">
-    <span className="timeline-dot" aria-hidden="true" />
     <div className="project-heading">
       <h3>{name}</h3>
       <p>{description}</p>
@@ -160,8 +190,8 @@ const RepresentativeProject = ({
     </div>
     <h4>담당</h4>
     <ul className="project-details">
-      {details.map((detail) => (
-        <li key={detail}>{detail}</li>
+      {details.map((detail, index) => (
+        <li key={`${name}-${index}`}>{detail}</li>
       ))}
     </ul>
     <div className="technologies">
@@ -542,20 +572,6 @@ const StyledResume = styled.article`
     padding-top: 2rem;
   }
 
-  .timeline-dot {
-    background: #3e4144;
-    border-radius: 50%;
-    height: 0.65rem;
-    left: -0.4rem;
-    position: absolute;
-    top: 2.15rem;
-    width: 0.65rem;
-  }
-
-  .timeline-item + .timeline-item .timeline-dot {
-    top: 0.16rem;
-  }
-
   .project-heading h3,
   .compact-entry h3,
   .skills h3,
@@ -568,9 +584,25 @@ const StyledResume = styled.article`
     margin: 0;
   }
 
+  .project-heading h3 {
+    position: relative;
+  }
+
+  .project-heading h3::before {
+    background: #3e4144;
+    border-radius: 50%;
+    content: "";
+    height: 0.65rem;
+    left: calc(-1.1rem - 0.325rem);
+    position: absolute;
+    top: 0.625em;
+    transform: translateY(-50%);
+    width: 0.65rem;
+  }
+
   .project-heading > p {
     font-size: 0.9rem;
-    font-weight: 650;
+    font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.4;
     margin: 0.35rem 0 0;
