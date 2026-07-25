@@ -203,6 +203,7 @@ const ResumePage: NextPageWithLayout = () => {
         }}
       />
       <StyledResume>
+        <p className="eyebrow">Resume / Backend Developer</p>
         <div className="resume-sheet">
           <aside className="identity-column">
             <div className="photo-frame">
@@ -368,15 +369,25 @@ const StyledResume = styled.article`
 
   color: var(--text);
   margin: 0 auto;
-  max-width: none;
-  padding: 0;
-  width: 100%;
+  max-width: 1160px;
+  padding: 2rem 0 4rem;
+
+  .eyebrow {
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+  }
 
   .resume-sheet {
     animation: sheet-enter 520ms ease-out both;
     background: #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 18px 42px rgba(10, 20, 35, 0.08);
     display: grid;
-    grid-template-columns: 420px minmax(0, 1fr);
+    grid-template-columns: 240px minmax(0, 1fr);
     min-height: 100%;
   }
 
@@ -384,7 +395,7 @@ const StyledResume = styled.article`
     border-right: 1px solid #d8dadd;
     display: flex;
     flex-direction: column;
-    padding: 2rem 4.2rem 4rem;
+    padding: 2.5rem 1.5rem;
   }
 
   .photo-frame {
@@ -406,11 +417,11 @@ const StyledResume = styled.article`
 
   h1 {
     color: #383838;
-    font-size: clamp(3.4rem, 6vw, 4.75rem);
+    font-size: clamp(2.4rem, 5vw, 3.15rem);
     font-weight: 800;
     letter-spacing: -0.09em;
     line-height: 0.86;
-    margin: 1.625rem 0 1.575rem;
+    margin: 1rem 0 1.2rem;
   }
 
   h1 span {
@@ -423,18 +434,18 @@ const StyledResume = styled.article`
   .identity-rule {
     background: var(--rule);
     height: 4px;
-    margin-bottom: 2.3rem;
+    margin-bottom: 1.85rem;
     width: 100%;
   }
 
   .profile-links {
     display: grid;
-    gap: 2.45rem;
+    gap: 1.35rem;
   }
 
   .profile-links div {
     display: grid;
-    gap: 0.85rem;
+    gap: 0.25rem;
   }
 
   .profile-links strong,
@@ -444,11 +455,7 @@ const StyledResume = styled.article`
 
   .profile-links strong {
     color: var(--ink);
-    font-size: 1.45rem;
-  }
-
-  .profile-links a {
-    font-size: 1.08rem;
+    font-size: 1.05rem;
   }
 
   a {
@@ -469,7 +476,7 @@ const StyledResume = styled.article`
 
   .resume-content {
     min-width: 0;
-    padding: 3.5rem 4.4rem 3.75rem 1.3rem;
+    padding: 2.5rem 3rem 3rem;
   }
 
   .resume-section {
@@ -483,11 +490,11 @@ const StyledResume = styled.article`
   .resume-section h2 {
     border-bottom: 2px solid var(--rule);
     color: var(--ink);
-    font-size: 2.2rem;
+    font-size: 1.7rem;
     font-weight: 700;
     letter-spacing: -0.055em;
     line-height: 1;
-    margin: 0 0 1.5rem;
+    margin: 0 0 0.8rem;
     padding-bottom: 0.4rem;
   }
 
@@ -496,9 +503,9 @@ const StyledResume = styled.article`
   }
 
   .profile p {
-    font-size: 1.25rem;
+    font-size: 0.95rem;
     letter-spacing: -0.025em;
-    line-height: 1.25;
+    line-height: 1.45;
     margin: 0;
   }
 
@@ -508,9 +515,9 @@ const StyledResume = styled.article`
 
   .content-columns {
     display: grid;
-    gap: 6.25rem;
-    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1fr);
-    margin-top: 1.25rem;
+    gap: 2.75rem;
+    grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.75fr);
+    margin-top: 2.5rem;
   }
 
   .representative-projects {
@@ -518,14 +525,13 @@ const StyledResume = styled.article`
   }
 
   .representative-projects > h2 {
-    font-size: 2.2rem;
+    font-size: 1.72rem;
   }
 
   .timeline-item {
     border-left: 2px solid #3e4144;
-    padding: 0 0 0.5rem 1.1rem;
+    padding: 0 0 2.25rem 1.1rem;
     position: relative;
-    width: 450px;
   }
 
   .timeline-item:last-child {
@@ -533,7 +539,7 @@ const StyledResume = styled.article`
   }
 
   .timeline-item + .timeline-item {
-    padding-top: 0;
+    padding-top: 2rem;
   }
 
   .timeline-dot {
@@ -542,7 +548,7 @@ const StyledResume = styled.article`
     height: 0.65rem;
     left: -0.4rem;
     position: absolute;
-    top: 0.16rem;
+    top: 2.15rem;
     width: 0.65rem;
   }
 
@@ -555,7 +561,7 @@ const StyledResume = styled.article`
   .skills h3,
   .support-projects h3 {
     color: #111;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: -0.035em;
     line-height: 1.25;
@@ -563,7 +569,7 @@ const StyledResume = styled.article`
   }
 
   .project-heading > p {
-    font-size: 1.4rem;
+    font-size: 0.9rem;
     font-weight: 650;
     letter-spacing: -0.03em;
     line-height: 1.4;
@@ -574,7 +580,7 @@ const StyledResume = styled.article`
   .support-project-meta {
     display: flex;
     flex-wrap: wrap;
-    font-size: 0.83rem;
+    font-size: 0.67rem;
     gap: 0.45rem 0.75rem;
     line-height: 1.35;
     margin-top: 0.5rem;
@@ -587,7 +593,7 @@ const StyledResume = styled.article`
   .timeline-item h4,
   .technologies h4 {
     color: #333;
-    font-size: 1.25rem;
+    font-size: 0.78rem;
     font-weight: 700;
     margin: 0.8rem 0 0.35rem;
   }
@@ -600,9 +606,9 @@ const StyledResume = styled.article`
   }
 
   .project-details li {
-    font-size: 1.15rem;
+    font-size: 0.8rem;
     letter-spacing: -0.026em;
-    line-height: 1.5;
+    line-height: 1.45;
     padding-left: 0.08rem;
   }
 
@@ -615,7 +621,7 @@ const StyledResume = styled.article`
   }
 
   .technologies p {
-    font-size: 0.83rem;
+    font-size: 0.62rem;
     line-height: 1.5;
     margin: 0;
     text-transform: uppercase;
@@ -626,66 +632,59 @@ const StyledResume = styled.article`
   }
 
   .details-column .resume-section + .resume-section {
-    margin-top: 2.75rem;
+    margin-top: 2rem;
   }
 
   .details-column .resume-section h2 {
-    font-size: 2.2rem;
+    font-size: 1.45rem;
   }
 
   .compact-entry + .compact-entry {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
 
   .compact-entry p,
   .skills p {
-    font-size: 0.94rem;
+    font-size: 0.7rem;
     letter-spacing: -0.025em;
     line-height: 1.4;
     margin: 0.28rem 0 0;
   }
 
   .skills > div + div {
-    margin-top: 1.5rem;
-  }
-
-  .skills h3 {
-    font-size: 1.5rem;
-  }
-
-  .skills p {
-    font-size: 1.25rem;
+    margin-top: 0.9rem;
   }
 
   .support-projects {
-    border-top: 4px solid var(--rule);
-    margin-top: 2.5rem;
-    padding-top: 3rem;
+    margin-top: auto;
+    padding-top: 3.5rem;
   }
 
   .support-projects article + article {
-    margin-top: 2.5rem;
+    border-top: 1px solid #d1d3d5;
+    margin-top: 1rem;
+    padding-top: 1rem;
   }
 
   .support-projects h3 {
-    font-size: 1.25rem;
+    font-size: 0.88rem;
   }
 
   .support-projects p,
   .support-projects small {
     display: block;
-    font-size: 0.94rem;
+    font-size: 0.68rem;
     line-height: 1.35;
     margin: 0.32rem 0 0;
   }
 
   .support-projects small {
-    font-size: 0.83rem;
+    font-size: 0.58rem;
     text-transform: uppercase;
   }
 
   .support-project-meta {
-    font-size: 0.83rem;
+    font-size: 0.58rem;
   }
 
   @keyframes sheet-enter {
@@ -723,7 +722,7 @@ const StyledResume = styled.article`
 
   @media (max-width: 900px) {
     .resume-sheet {
-      grid-template-columns: 280px minmax(0, 1fr);
+      grid-template-columns: 210px minmax(0, 1fr);
     }
 
     .resume-content {
@@ -731,12 +730,8 @@ const StyledResume = styled.article`
     }
 
     .content-columns {
-      gap: 2.5rem;
+      gap: 2rem;
       grid-template-columns: minmax(0, 1fr);
-    }
-
-    .timeline-item {
-      width: auto;
     }
 
     .details-column {
@@ -752,9 +747,17 @@ const StyledResume = styled.article`
   }
 
   @media (max-width: 640px) {
+    margin: 0 -1rem;
     padding: 0;
 
+    .eyebrow {
+      margin: 1.25rem 1rem 0.65rem;
+    }
+
     .resume-sheet {
+      border-left: 0;
+      border-right: 0;
+      box-shadow: none;
       display: block;
     }
 
