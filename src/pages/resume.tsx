@@ -35,21 +35,21 @@ const sideProjects = [
   {
     name: "MiruMiru (1M | 2명) BE/Infra",
     description: "일본 대학 커뮤니티 및 학사 지원 서비스",
-    stack: "Kotlin / Spring / PostgreSQL",
+    stack: "Kotlin / Spring / POSTGRESQL",
     period: "2026.03",
     link: { label: "Github", href: "https://github.com/wingwogus/MiruMiru" },
   },
   {
     name: "Meetny (3M | 5명) BE/Infra",
     description: "잉여 티켓 동행 매칭 서비스",
-    stack: "Java / Spring / MySQL",
+    stack: "JAVA / Spring / mysql",
     period: "2025.03 - 2025.06",
     link: { label: "Github", href: "https://github.com/wingwogus/Meetny-Backend" },
   },
   {
     name: "RamenLog (3M | 3명) BE/Infra",
     description: "전국 라멘 맛집 리뷰 서비스",
-    stack: "Java / Spring / MySQL",
+    stack: "JAVA / Spring / mysql",
     period: "2024.10 - 2024.11",
     link: {
       label: "https://ramenlog.jaehyuns.com",
@@ -71,18 +71,24 @@ const representativeProjects: ProjectProps[] = [
       { label: "Github", href: "https://github.com/wingwogus/ChamChamCham" },
     ],
     details: [
-      <>커뮤니티 및 카카오/애플/네이버 <strong>소셜 로그인 구현</strong></>,
       <>
-        농업e지 정책 일 1,000건 동기화 및 실패 격리/Upsert/누락 정책 비활성화, SELECT 쿼리{" "}
-        <strong>9회→2회로 78% 감소</strong>
-      </>,
-      "최종 수확 기준 재배 주기 분할 및 8개 영농 작업 통계 리포트 구현",
-      <>
-        Spring AI/pgvector <strong>RAG 구축</strong> 및 비동기 처리로 기록 저장 응답시간{" "}
-        <strong>2.3초→300ms 단축</strong>
+        농업e지 정책 동기화 파이프라인 구축, 건별 실패 격리, 원본 누락 정책 자동 비활성화로{" "}
+        <strong>부분 실패에도 데이터 정합성 유지</strong>
       </>,
       <>
-        GitHub Actions 및 Docker 배포 자동화로 배포시간 <strong>15분→8분 단축</strong>, Health Check 및 배포 안전 게이트 적용
+        정책 추천 조회의 N+1 문제를 fetch join과 배치 조회로 개선해{" "}
+        <strong>SELECT 쿼리 9회→2회(78% 감소)</strong>
+      </>,
+      <>
+        Spring AI/pgvector 기반 <strong>RAG 구축</strong> 및 이벤트 기반 비동기로 분리해{" "}
+        <strong>기록 저장 응답시간 2.3초→300ms 단축</strong>
+      </>,
+      <>
+        <strong>최종 수확 시점 기준으로 재배 주기를 분할하는 도메인 모델</strong>을 설계하고 주기 단위 8개 영농 작업 통계 리포트 구현
+      </>,
+      <>
+        GitHub Actions에 Gradle 의존성 및 Docker 레이어 캐시 적용으로{" "}
+        <strong>배포시간 10분 → 4분(60% 단축)</strong>
       </>,
     ],
     technologies: [
@@ -101,7 +107,7 @@ const representativeProjects: ProjectProps[] = [
     ],
     details: [
       <>
-        서비스 기획부터 백엔드, iOS 앱, 배포, 운영까지 <strong>전 과정을 1인 개발해</strong> 대한민국 App Store 음식 및 음료 무료 앱{" "}
+        <strong>전 과정을 1인 개발해</strong> 대한민국 App Store 음식 및 음료 무료 앱{" "}
         <strong>최고 136위</strong>, 최근 30일 활성 기기 <strong>107대</strong> 기록
       </>,
       <>
@@ -148,8 +154,8 @@ const representativeProjects: ProjectProps[] = [
       </>,
     ],
     technologies: [
-      "Kotlin / Spring / PostgreSQL / Redis / Kubernetes / Docker",
-      "Nginx / OCI / GitHub Actions / Argo CD",
+      "Kotlin / Spring / Postgresql / Redis / kubernetes / Docker",
+      "Nginx / OCI / GitHub Actions / argocd",
     ],
   },
 ]
@@ -277,12 +283,7 @@ const ResumePage: NextPageWithLayout = () => {
           <div className="resume-content">
             <ResumeSection title="Profile" className="profile">
               <p>
-                실시간 협업 기능과 GitOps 기반 배포 자동화 경험을 바탕으로, 기능 구현을 넘어
-                latency, DB I/O, deployment lead time을 수치로 개선하는 백엔드 개발자입니다.
-              </p>
-              <p>
-                Kotlin/Spring 기반 서비스에서 Redis 캐싱, cursor pagination, 이벤트 기반 구조를
-                적용했고, Kubernetes/Argo CD/GitOps 환경에서 안정적인 배포 체계를 설계했습니다.
+                Kotlin/Spring 기반으로 팀 프로젝트의 성능 병목 개선부터 개인 서비스의 App Store 출시 운영까지, 기능 구현을 넘어 응답시간과 DB 조회, 배포 소요시간을 수치로 개선하는 백엔드 개발자입니다. Redis 캐싱과 cursor pagination으로 p95 응답시간을 최대 81% 개선하고 pgvector 기반 RAG 피드백 생성을 이벤트 기반 비동기로 분리했으며, 출시한 서비스는 Kubernetes/Argo CD 환경에서 커밋 단위 롤백 체계로 운영하고 있습니다.
               </p>
             </ResumeSection>
 

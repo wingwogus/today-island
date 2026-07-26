@@ -23,6 +23,10 @@ test("provides a native scrollable resume page with the core resume sections", (
     "포트폴리오 경진대회",
     "Skills",
     "TRI-BE",
+    "농업e지 정책 동기화 파이프라인 구축",
+    "SELECT 쿼리 9회→2회(78% 감소)",
+    "배포시간 10분 → 4분(60% 단축)",
+    "p95 응답시간을 최대 81% 개선",
   ]) {
     assert.ok(resumePage.includes(section), `missing resume content: ${section}`)
   }
