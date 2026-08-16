@@ -156,10 +156,12 @@ export function buildRecordMapFromBlocks(
   blocks: NotionBlock[],
   options: { pageId?: string } = {}
 ): ExtendedRecordMap {
-  const blockMap: Record<ID, any> = {}
   const visited = new Set<string>()
 
-  function collect(block: NotionBlock) {
+  function collect(
+    block: NotionBlock,
+    blockMap: Record<ID, any>
+  ) {
     if (visited.has(block.id)) return
     visited.add(block.id)
 
@@ -167,7 +169,7 @@ export function buildRecordMapFromBlocks(
     const children = block.children || []
     for (const child of children) {
       childIds.push(child.id)
-      collect(child)
+      collect(child, blockMap)
     }
 
     const value = buildBlockValue(block)
@@ -209,7 +211,7 @@ export function buildRecordMapFromBlocks(
   }
 
   for (const block of blocks) {
-    collect(block)
+    collect(block, recordMap.block)
   }
 
   return recordMap as ExtendedRecordMap
