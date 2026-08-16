@@ -157,13 +157,11 @@ export function buildRecordMapFromBlocks(
   options: { pageId?: string } = {}
 ): ExtendedRecordMap {
   const blockMap: Record<ID, any> = {}
-  const allBlocks: NotionBlock[] = []
   const visited = new Set<string>()
 
   function collect(block: NotionBlock) {
     if (visited.has(block.id)) return
     visited.add(block.id)
-    allBlocks.push(block)
 
     const childIds: ID[] = []
     const children = block.children || []
@@ -177,12 +175,8 @@ export function buildRecordMapFromBlocks(
     blockMap[block.id] = { value }
   }
 
-  for (const block of blocks) {
-    collect(block)
-  }
-
   const recordMap: any = {
-    block: blockMap,
+    block: {},
     collection: {},
     collection_view: {},
     collection_query: {},
@@ -193,26 +187,29 @@ export function buildRecordMapFromBlocks(
     user: {},
   }
 
+  // react-notion-x는 recordMap.block의 첫 번째 키를 페이지 루트로 사용한다.
+  // 따라서 page 블록을 반드시 첫 키로 배치해야 본문이 렌더링된다.
   if (options.pageId) {
-    // 페이지 자체 블록도 추가해 react-notion-x가 루트로 인식하게 한다
-    if (!blockMap[options.pageId]) {
-      const pageValue: any = {
-        id: options.pageId,
-        type: "page",
-        parent_id: "",
-        parent_table: "space",
-        created_time: Date.now(),
-        last_edited_time: Date.now(),
-        alive: true,
-        version: 1,
-        space_id: "",
-        properties: {},
-        format: { page_full_width: false },
-        permissions: [{ role: "reader", type: "user_permission" }],
-        content: blocks.map((b) => b.id),
-      }
-      blockMap[options.pageId] = { value: pageValue }
+    const pageValue: any = {
+      id: options.pageId,
+      type: "page",
+      parent_id: "",
+      parent_table: "space",
+      created_time: Date.now(),
+      last_edited_time: Date.now(),
+      alive: true,
+      version: 1,
+      space_id: "",
+      properties: {},
+      format: { page_full_width: false },
+      permissions: [{ role: "reader", type: "user_permission" }],
+      content: blocks.map((b) => b.id),
     }
+    recordMap.block[options.pageId] = { value: pageValue }
+  }
+
+  for (const block of blocks) {
+    collect(block)
   }
 
   return recordMap as ExtendedRecordMap
