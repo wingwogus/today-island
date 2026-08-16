@@ -43,6 +43,24 @@ function mapPage(page) {
     (props[name]?.[props[name]?.type] ?? [])[0]?.file?.url ||
     (props[name]?.[props[name]?.type] ?? [])[0]?.external?.url
 
+  // Notion 공식 API는 만료 시간이 있는 임시 이미지 URL을 반환한다.
+  // 캐시에는 인증 정보가 없는 Notion 이미지 프록시 URL을 저장한다.
+  const toNotionProxyUrl = (url) => {
+    if (!url) return undefined
+    if (!url.includes("X-Amz-") && !url.includes("prod-files-secure")) return url
+
+    try {
+      const parsed = new URL(url)
+      const segments = parsed.pathname.split("/").filter(Boolean)
+      const filename = segments[segments.length - 1]
+      const fileId = segments[segments.length - 2]
+
+      return `https://www.notion.so/image/attachment%3A${fileId}%3A${encodeURIComponent(filename)}?table=block&cache=v2`
+    } catch {
+      return url
+    }
+  }
+
   return {
     id: page.id,
     date: { start_date: props.date?.date?.start ?? null },
@@ -53,7 +71,7 @@ function mapPage(page) {
     title: getRich("title"),
     status: getSelect("status") ? [getSelect("status")] : [],
     slug: getRich("slug"),
-    thumbnail: getFiles("thumbnail"),
+    thumbnail: toNotionProxyUrl(getFiles("thumbnail")),
     createdTime: page.created_time,
     lastEditedTime: page.last_edited_time,
     fullWidth: false,
