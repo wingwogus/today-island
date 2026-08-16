@@ -4,14 +4,11 @@ import { NextPageWithLayout } from "../types"
 import { getPosts } from "../apis"
 import MetaConfig from "src/components/MetaConfig"
 import { queryKey } from "src/constants/queryKey"
-import { GetStaticProps } from "next"
+import { GetServerSideProps } from "next"
 import { QueryClient, dehydrate } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
 import { applyTitleSlug } from "src/libs/utils/slug"
-import {
-  getHomepageRevalidateSeconds,
-  shouldForceHomepagePostsCache,
-} from "src/libs/utils/homepageRevalidation"
+import { shouldForceHomepagePostsCache } from "src/libs/utils/homepageRevalidation"
 import cachedFeedPosts from "src/generated/homepage-posts-cache.json"
 import { TPosts } from "src/types"
 
@@ -34,7 +31,7 @@ const getFeedPosts = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const posts = await getFeedPosts()
   const serverQueryClient = new QueryClient()
   await serverQueryClient.prefetchQuery(queryKey.posts(), () => posts)
@@ -43,7 +40,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(serverQueryClient),
     },
-    revalidate: getHomepageRevalidateSeconds(),
   }
 }
 

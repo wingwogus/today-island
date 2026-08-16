@@ -5,27 +5,19 @@ import { NextPageWithLayout } from "../types"
 import CustomError from "src/routes/Error"
 import { getRecordMap, getPosts } from "src/apis"
 import MetaConfig from "src/components/MetaConfig"
-import { GetStaticProps } from "next"
+import { GetServerSideProps } from "next"
 import { queryClient } from "src/libs/react-query"
 import { queryKey } from "src/constants/queryKey"
 import { dehydrate } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
-import { normalizeRecordMapForReactNotionX } from "src/libs/utils/notion/normalizeRecordMapForReactNotionX"
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
   acceptType: ["Paper", "Post", "Page"],
 }
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: "blocking",
-  }
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = context.params?.slug
 
   const posts = await getPosts()
@@ -38,13 +30,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!postDetail) {
     return {
       notFound: true,
-      revalidate: CONFIG.revalidateTime,
     }
   }
 
-  const recordMap = normalizeRecordMapForReactNotionX(
-    await getRecordMap(postDetail.id)
-  )
+  const recordMap = await getRecordMap(postDetail.id)
 
   await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
     ...postDetail,
@@ -55,7 +44,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: CONFIG.revalidateTime,
   }
 }
 
