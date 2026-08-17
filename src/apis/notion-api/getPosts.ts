@@ -17,7 +17,7 @@ function mapPage(page: any): any {
     (props[name]?.[props[name]?.type] ?? [])[0]?.file?.url ||
     (props[name]?.[props[name]?.type] ?? [])[0]?.external?.url
 
-  const toNotionProxyUrl = (url: string | undefined) => {
+  const toNotionProxyUrl = (url: string | undefined, blockId: string) => {
     if (!url) return undefined
     if (!url.includes("X-Amz-") && !url.includes("prod-files-secure")) return url
     try {
@@ -27,7 +27,7 @@ function mapPage(page: any): any {
       const fileId = segments[segments.length - 2]
       return `https://www.notion.so/image/attachment%3A${fileId}%3A${encodeURIComponent(
         filename
-      )}?table=block&cache=v2`
+      )}?table=block&id=${encodeURIComponent(blockId)}&cache=v2`
     } catch {
       return url
     }
@@ -43,7 +43,7 @@ function mapPage(page: any): any {
     title: getRich("title"),
     status: getSelect("status") ? [getSelect("status")] : [],
     slug: getRich("slug"),
-    thumbnail: toNotionProxyUrl(getFiles("thumbnail")),
+    thumbnail: toNotionProxyUrl(getFiles("thumbnail"), page.id),
     createdTime: page.created_time,
     lastEditedTime: page.last_edited_time,
     fullWidth: false,
