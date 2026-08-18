@@ -1,4 +1,5 @@
 const HOMEPAGE_REVALIDATE_SECONDS = 600
+const SHARED_ROUTE_CACHE_SECONDS = 60
 
 /**
  * Returns the homepage ISR interval.
@@ -7,6 +8,15 @@ const HOMEPAGE_REVALIDATE_SECONDS = 600
  */
 function getHomepageRevalidateSeconds() {
   return HOMEPAGE_REVALIDATE_SECONDS
+}
+
+/**
+ * Returns the Vercel CDN policy for public SSR routes.
+ *
+ * @returns {string}
+ */
+function getSharedRouteCacheControl() {
+  return `public, s-maxage=${SHARED_ROUTE_CACHE_SECONDS}, stale-while-revalidate=${HOMEPAGE_REVALIDATE_SECONDS}`
 }
 
 /**
@@ -21,5 +31,6 @@ function shouldForceHomepagePostsCache(environment = process.env) {
 
 module.exports = {
   getHomepageRevalidateSeconds,
+  getSharedRouteCacheControl,
   shouldForceHomepagePostsCache,
 }

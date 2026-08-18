@@ -11,6 +11,7 @@ import { queryKey } from "src/constants/queryKey"
 import { dehydrate } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
+import { getSharedRouteCacheControl } from "src/libs/utils/homepageRevalidation"
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
@@ -18,6 +19,7 @@ const filter: FilterPostsOptions = {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  context.res.setHeader("Cache-Control", getSharedRouteCacheControl())
   const slug = context.params?.slug
 
   const posts = await getPosts()
