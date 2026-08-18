@@ -1,4 +1,6 @@
 import { CONFIG } from "site.config"
+import { withNotionRetry } from "src/libs/utils/notion/withNotionRetry"
+import { NotionHttpError } from "./notionHttpError"
 
 const NOTION_VERSION = "2022-06-28"
 const MAX_DEPTH = 6
@@ -19,15 +21,22 @@ export async function notionFetch<T>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> {
-  const response = await fetch(`https://api.notion.com/v1${path}`, {
-    ...options,
-    headers: { ...getHeaders(), ...(options.headers || {}) },
+  return withNotionRetry(`Notion ${options.method || "GET"} ${path}`, async () => {
+    const response = await fetch(`https://api.notion.com/v1${path}`, {
+      ...options,
+      headers: { ...getHeaders(), ...(options.headers || {}) },
+    })
+
+    if (!response.ok) {
+      const body = await response.text().catch(() => "")
+      throw new NotionHttpError(
+        response.status,
+        `${response.status}${body ? ` ${body}` : ""}`
+      )
+    }
+
+    return (await response.json()) as T
   })
-  const body = await response.json()
-  if (!response.ok) {
-    throw new Error(`${response.status} ${JSON.stringify(body)}`)
-  }
-  return body as T
 }
 
 interface ListResponse<T> {
@@ -80,4 +89,4 @@ export async function getPageBlockTree(pageId: string): Promise<any[]> {
   return attachChildren(topLevel, 0)
 }
 
-export { CONFIG }
+export { CONFIG, NotionHttpError }

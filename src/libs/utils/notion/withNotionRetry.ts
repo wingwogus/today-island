@@ -1,10 +1,4 @@
-const RETRYABLE_STATUS_CODES = new Set([408, 429, 500, 502, 503, 504])
-const RETRYABLE_ERROR_CODES = new Set([
-  "ECONNRESET",
-  "ETIMEDOUT",
-  "ENOTFOUND",
-  "EAI_AGAIN",
-])
+import { NotionHttpError } from "src/apis/notion-api/notionHttpError"
 
 type RetryOptions = {
   attempts?: number
@@ -13,38 +7,9 @@ type RetryOptions = {
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const getRetryStatus = (error: unknown) => {
-  const maybeError = error as {
-    code?: string
-    statusCode?: number
-    status?: number
-    response?: {
-      statusCode?: number
-      status?: number
-    }
-  }
-
-  const statusCode =
-    maybeError.response?.statusCode ||
-    maybeError.response?.status ||
-    maybeError.statusCode ||
-    maybeError.status
-
-  return {
-    code: maybeError.code,
-    statusCode,
-  }
-}
-
-const shouldRetry = (error: unknown) => {
-  const { code, statusCode } = getRetryStatus(error)
-
-  return (
-    (typeof statusCode === "number" &&
-      RETRYABLE_STATUS_CODES.has(statusCode)) ||
-    (typeof code === "string" && RETRYABLE_ERROR_CODES.has(code))
-  )
-}
+const shouldRetry = (error: unknown) =>
+  error instanceof NotionHttpError &&
+  (error.status === 429 || (error.status >= 500 && error.status <= 599))
 
 export const withNotionRetry = async <T>(
   label: string,
@@ -63,7 +28,7 @@ export const withNotionRetry = async <T>(
         throw error
       }
 
-      const { code, statusCode } = getRetryStatus(error)
+      const retryError = error as NotionHttpError
       const nextDelay = delayMs * 2 ** (attempt - 1)
 
       console.warn(
@@ -71,8 +36,7 @@ export const withNotionRetry = async <T>(
         {
           attempt,
           attempts,
-          statusCode,
-          code,
+          statusCode: retryError.status,
           nextDelay,
         }
       )

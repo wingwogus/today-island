@@ -3,6 +3,12 @@ import { applyTitleSlug } from "src/libs/utils/slug"
 import { notionFetch } from "./getPageBlocks"
 import { TPosts } from "src/types"
 
+interface DatabaseQueryResponse {
+  results?: any[]
+  has_more?: boolean
+  next_cursor?: string | null
+}
+
 const textContent = (richText: any) =>
   richText?.map((t: any) => t.plain_text).join("") ?? ""
 
@@ -52,15 +58,28 @@ function mapPage(page: any): any {
 
 export async function getPosts(): Promise<TPosts> {
   const dbId = CONFIG.notionConfig.pageId
-  const results = await notionFetch<any>(`/databases/${dbId}/query`, {
-    method: "POST",
-    body: JSON.stringify({
+  const pages: any[] = []
+  let cursor: string | undefined
+
+  do {
+    const body: Record<string, unknown> = {
       page_size: 100,
       sorts: [{ property: "date", direction: "descending" }],
-    }),
-  })
+    }
+    if (cursor) body.start_cursor = cursor
 
-  const pages = results.results || []
+    const result = await notionFetch<DatabaseQueryResponse>(
+      `/databases/${dbId}/query`,
+      { method: "POST", body: JSON.stringify(body) }
+    )
+    pages.push(...(result.results || []))
+
+    if (result.has_more && !result.next_cursor) {
+      throw new Error("Notion returned has_more without next_cursor")
+    }
+    cursor = result.has_more ? result.next_cursor || undefined : undefined
+  } while (cursor)
+
   return pages
     .map(mapPage)
     .map((post: any) => applyTitleSlug({ ...post })) as TPosts
